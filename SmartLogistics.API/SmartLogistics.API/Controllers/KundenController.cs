@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.Repositories;
 
@@ -8,10 +9,12 @@ namespace SmartLogistics.API.Controllers
     public class KundenController : Controller
     {
         private readonly IKundenRepository kundenRepository;
+        private readonly IMapper mapper;
 
-        public KundenController(IKundenRepository kundenRepository)
+        public KundenController(IKundenRepository kundenRepository, IMapper mapper)
         {
             this.kundenRepository = kundenRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -20,36 +23,7 @@ namespace SmartLogistics.API.Controllers
         {
             var kunden = (kundenRepository.GetKunden());
 
-            var domainModelKunden = new List<KundeDto>();
-
-            foreach (var kunde in kunden)
-            {
-                domainModelKunden.Add(new KundeDto
-                {
-                    Id = kunde.Id,
-                    Vorname = kunde.Vorname,
-                    Nachname = kunde.Nachname,
-                    Geburtsdatum = kunde.Geburtsdatum,
-                    Email = kunde.Email,
-                    Telefon = kunde.Telefon,
-                    GeschlechtId = kunde.GeschlechtId,
-                    Adresse = new AdresseDto()
-                    {
-                        Id = kunde.Adresse.Id,
-                        Strasse = kunde.Adresse.Strasse,
-                        Hausnummer = kunde.Adresse.Hausnummer,
-                        OrtId = kunde.Adresse.OrtId
-                    },
-                    Geschlecht = new GeschlechtDto()
-                    {
-                        Id = kunde.Geschlecht.Id,
-                        Beschreibung = kunde.Geschlecht.Beschreibung
-                    }
-
-                });
-            }
-
-            return Ok(domainModelKunden);
+            return Ok(mapper.Map<List<KundeDto>>(kunden));
 
         }
     }
