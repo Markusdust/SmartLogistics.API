@@ -1,4 +1,5 @@
-﻿using SmartLogistics.API.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartLogistics.API.DataModels;
 
 namespace SmartLogistics.API.Repositories
 {
@@ -15,7 +16,7 @@ namespace SmartLogistics.API.Repositories
 
         public List<Kunde> GetKunden()
         {
-            return context.Kunden.ToList();
+            return context.Kunden.Include(nameof(Geschlecht)).Include(nameof(Adresse)).ToList();
         }
     }
 }
