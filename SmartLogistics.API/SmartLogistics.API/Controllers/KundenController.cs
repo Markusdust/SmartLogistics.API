@@ -19,9 +19,9 @@ namespace SmartLogistics.API.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public IActionResult GetAllKunden()
+        public async Task<IActionResult> GetAllKundenAsync()
         {
-            var kunden = (kundenRepository.GetKunden());
+            var kunden = await kundenRepository.GetKundenAsync();
 
             return Ok(mapper.Map<List<KundeDto>>(kunden));
 

@@ -4,7 +4,7 @@ namespace SmartLogistics.API.Repositories
 {
     public interface IKundenRepository
     {
-        List<Kunde> GetKunden();
+        Task<List<Kunde>> GetKundenAsync();
 
     }
 }

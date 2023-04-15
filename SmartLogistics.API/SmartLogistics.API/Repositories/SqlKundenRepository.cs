@@ -14,9 +14,9 @@ namespace SmartLogistics.API.Repositories
 
 
 
-        public List<Kunde> GetKunden()
+        public async Task<List<Kunde>> GetKundenAsync()
         {
-            return context.Kunden.Include(nameof(Geschlecht)).Include(nameof(Adresse)).ToList();
+            return await context.Kunden.Include(nameof(Geschlecht)).Include(nameof(Adresse)).ToListAsync();
         }
     }
 }
