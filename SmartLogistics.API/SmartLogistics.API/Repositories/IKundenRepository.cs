@@ -6,5 +6,6 @@ namespace SmartLogistics.API.Repositories
     {
         Task<List<Kunde>> GetKundenAsync();
 
+        Task<Kunde> GetKundeAsync(Guid kundeId);
     }
 }

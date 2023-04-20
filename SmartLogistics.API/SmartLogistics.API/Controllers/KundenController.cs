@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.Repositories;
 
@@ -25,6 +26,21 @@ namespace SmartLogistics.API.Controllers
 
             return Ok(mapper.Map<List<KundeDto>>(kunden));
 
+        }
+
+        [HttpGet]
+        [Route("[controller]/{kundeId:guid}")]
+        public async Task<IActionResult> GetKundeAsync([FromRoute] Guid kundeId)
+        {
+            //Fetch Kunden Details
+            var kunde = await kundenRepository.GetKundeAsync(kundeId);
+
+            //Return
+            if (kunde == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<KundeDto>(kunde));
         }
     }
 }

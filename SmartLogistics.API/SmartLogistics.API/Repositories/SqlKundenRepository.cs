@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartLogistics.API.DataModels;
+using System.Net;
+using System.Reflection;
 
 namespace SmartLogistics.API.Repositories
 {
@@ -12,11 +14,16 @@ namespace SmartLogistics.API.Repositories
             this.context = context;
         }
 
-
-
         public async Task<List<Kunde>> GetKundenAsync()
         {
             return await context.Kunden.Include(nameof(Geschlecht)).Include(nameof(Adresse)).ToListAsync();
+        }
+
+        public async Task<Kunde> GetKundeAsync(Guid kundeId)
+        {
+            return await context.Kunden
+                .Include(nameof(Geschlecht)).Include(nameof(Adresse))
+                .FirstOrDefaultAsync(x=> x.Id ==kundeId);
         }
     }
 }
