@@ -25,5 +25,10 @@ namespace SmartLogistics.API.Repositories
                 .Include(nameof(Geschlecht)).Include(nameof(Adresse))
                 .FirstOrDefaultAsync(x=> x.Id ==kundeId);
         }
+
+        public async Task<List<Geschlecht>> GetGeschlechterAsync()
+        {
+            return await context.Geschlechter.ToListAsync();
+        }
     }
 }
