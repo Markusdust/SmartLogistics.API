@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DataModels = SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
+using SmartLogistics.API.DataModels;
+using SmartLogistics.API.Profiles.AfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {
@@ -32,6 +34,9 @@ namespace SmartLogistics.API.Profiles
             CreateMap<DataModels.Roboter, RoboterDto>()
                 .ReverseMap();
 
+            CreateMap<UpdateKundeRequest, Kunde>()
+                .AfterMap<UpdateKundeRequestAfterMap>();
+              
         }
     }
 }

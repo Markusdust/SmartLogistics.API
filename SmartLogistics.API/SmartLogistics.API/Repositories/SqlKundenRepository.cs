@@ -30,5 +30,31 @@ namespace SmartLogistics.API.Repositories
         {
             return await context.Geschlechter.ToListAsync();
         }
+
+        public async Task<bool> Exists(Guid kundenId)
+        {
+            return await context.Kunden.AnyAsync(x=> x.Id == kundenId);
+        }
+
+        public async Task<Kunde> UpdateKunde(Guid kundenId, Kunde request)
+        {
+            var existingKunde = await GetKundeAsync(kundenId);
+            if (existingKunde != null)
+            {
+                existingKunde.Vorname = request.Vorname;
+                existingKunde.Nachname = request.Nachname;
+                existingKunde.Geburtsdatum = request.Geburtsdatum;
+                existingKunde.Email = request.Email;
+                existingKunde.Telefon = request.Telefon;
+                existingKunde.GeschlechtId= request.GeschlechtId;
+                existingKunde.Adresse.Strasse = request.Adresse.Strasse;
+                existingKunde.Adresse.Hausnummer = request.Adresse.Hausnummer;
+
+                await context.SaveChangesAsync();
+                return existingKunde;
+            }
+
+            return null;
+        }
     }
 }

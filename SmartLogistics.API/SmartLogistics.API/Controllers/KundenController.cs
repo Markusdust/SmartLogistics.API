@@ -42,5 +42,23 @@ namespace SmartLogistics.API.Controllers
             }
             return Ok(mapper.Map<KundeDto>(kunde));
         }
+
+        [HttpPut]
+        [Route("[controller]/{kundeId:guid}")]
+        public async Task<IActionResult> UpdateKundeAsync([FromRoute] Guid kundeId, [FromBody] UpdateKundeRequest request)
+        {
+            if (await kundenRepository.Exists(kundeId))
+            {
+                //update Details
+                var updateKunde = await kundenRepository.UpdateKunde(kundeId, mapper.Map<Kunde>(request));
+
+                if (updateKunde != null)
+                {
+                    return Ok(mapper.Map<KundeDto>(updateKunde));
+                }
+            }
+            return NotFound();
+
+        }
     }
 }
