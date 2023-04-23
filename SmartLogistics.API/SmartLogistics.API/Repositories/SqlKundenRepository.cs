@@ -56,5 +56,17 @@ namespace SmartLogistics.API.Repositories
 
             return null;
         }
+
+        public async Task<Kunde> DeleteKunde(Guid kundenId)
+        {
+            var kunde = await GetKundeAsync(kundenId);
+            if(kunde != null)
+            {
+                context.Kunden.Remove(kunde);
+                await context.SaveChangesAsync();
+            }
+
+            return null;
+        }
     }
 }

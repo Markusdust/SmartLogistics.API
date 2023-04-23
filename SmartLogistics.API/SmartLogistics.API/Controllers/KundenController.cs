@@ -60,5 +60,19 @@ namespace SmartLogistics.API.Controllers
             return NotFound();
 
         }
+
+        [HttpDelete]
+        [Route("[controller]/{kundeId:guid}")]
+        public async Task<IActionResult> DeleteKundeAsysnc([FromRoute] Guid kundeId)
+        {
+            if (await kundenRepository.Exists(kundeId))
+            {
+                var kunde = await kundenRepository.DeleteKunde(kundeId);
+                return Ok(mapper.Map<KundeDto>(kunde));
+
+            }
+
+            return NotFound();
+        }
     }
 }
