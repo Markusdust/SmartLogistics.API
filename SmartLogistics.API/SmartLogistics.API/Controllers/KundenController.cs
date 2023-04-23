@@ -29,7 +29,7 @@ namespace SmartLogistics.API.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/{kundeId:guid}")]
+        [Route("[controller]/{kundeId:guid}"), ActionName("GetKundeAsync")]
         public async Task<IActionResult> GetKundeAsync([FromRoute] Guid kundeId)
         {
             //Fetch Kunden Details
@@ -73,6 +73,15 @@ namespace SmartLogistics.API.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        [Route("[controller]/Add")]
+        public async Task<IActionResult> AddKundeAsync([FromBody] AddKundeRequest request)
+        {
+            var kunde= await kundenRepository.AddKunde(mapper.Map<Kunde>(request));
+            return CreatedAtAction(nameof(GetKundeAsync), new { kundeId = kunde.Id },
+                mapper.Map<KundeDto>(kunde));
         }
     }
 }

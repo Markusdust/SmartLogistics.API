@@ -36,6 +36,9 @@ namespace SmartLogistics.API.Profiles
 
             CreateMap<UpdateKundeRequest, Kunde>()
                 .AfterMap<UpdateKundeRequestAfterMap>();
+
+            CreateMap<AddKundeRequest, DataModels.Kunde>()
+                .AfterMap<AddKundeRequestAfterMap>();
               
         }
     }

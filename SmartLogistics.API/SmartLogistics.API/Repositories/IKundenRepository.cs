@@ -17,5 +17,7 @@ namespace SmartLogistics.API.Repositories
         Task<Kunde> UpdateKunde(Guid kundenId, Kunde request);
 
         Task<Kunde> DeleteKunde(Guid kundenId);
+        Task<Kunde> AddKunde(Kunde request);
     }
 }
+ 
