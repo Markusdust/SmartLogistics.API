@@ -12,8 +12,8 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230407150716_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20230426231248_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,8 @@ namespace SmartLogistics.API.Migrations
 
                     b.HasIndex("KundeId")
                         .IsUnique();
+
+                    b.HasIndex("OrtId");
 
                     b.ToTable("Adressen");
                 });
@@ -207,6 +209,14 @@ namespace SmartLogistics.API.Migrations
                         .HasForeignKey("SmartLogistics.API.DataModels.Adresse", "KundeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SmartLogistics.API.DataModels.Ort", "Ort")
+                        .WithMany()
+                        .HasForeignKey("OrtId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ort");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Kunde", b =>

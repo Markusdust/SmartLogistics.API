@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartLogistics.API.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,6 +132,12 @@ namespace SmartLogistics.API.Migrations
                         principalTable: "Kunden",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Adressen_Orte_OrtId",
+                        column: x => x.OrtId,
+                        principalTable: "Orte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -139,6 +145,11 @@ namespace SmartLogistics.API.Migrations
                 table: "Adressen",
                 column: "KundeId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Adressen_OrtId",
+                table: "Adressen",
+                column: "OrtId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kunden_GeschlechtId",
@@ -159,9 +170,6 @@ namespace SmartLogistics.API.Migrations
                 name: "Lieferungen");
 
             migrationBuilder.DropTable(
-                name: "Orte");
-
-            migrationBuilder.DropTable(
                 name: "Produkte");
 
             migrationBuilder.DropTable(
@@ -169,6 +177,9 @@ namespace SmartLogistics.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Kunden");
+
+            migrationBuilder.DropTable(
+                name: "Orte");
 
             migrationBuilder.DropTable(
                 name: "Geschlechter");

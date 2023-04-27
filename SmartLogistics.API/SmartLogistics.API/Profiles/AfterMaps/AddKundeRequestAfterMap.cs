@@ -14,9 +14,13 @@ namespace SmartLogistics.API.Profiles.AfterMaps
                 Id = Guid.NewGuid(),
                 Strasse = source.Strasse,
                 Hausnummer = source.Hausnummer,
-                OrtId = source.OrtId
+                Ort= new DataModels.Ort()
+                {
+                    Id= Guid.NewGuid(),
+                    Postleitzahl= source.Postleitzahl,
+                    Ortschaft= source.Ortschaft
+                }
             };
-
         }
     }
 }

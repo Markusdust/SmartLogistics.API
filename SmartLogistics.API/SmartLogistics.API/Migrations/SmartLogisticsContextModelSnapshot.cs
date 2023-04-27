@@ -47,6 +47,8 @@ namespace SmartLogistics.API.Migrations
                     b.HasIndex("KundeId")
                         .IsUnique();
 
+                    b.HasIndex("OrtId");
+
                     b.ToTable("Adressen");
                 });
 
@@ -204,6 +206,14 @@ namespace SmartLogistics.API.Migrations
                         .HasForeignKey("SmartLogistics.API.DataModels.Adresse", "KundeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SmartLogistics.API.DataModels.Ort", "Ort")
+                        .WithMany()
+                        .HasForeignKey("OrtId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ort");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Kunde", b =>

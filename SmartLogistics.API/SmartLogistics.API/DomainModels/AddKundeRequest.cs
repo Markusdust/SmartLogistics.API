@@ -11,6 +11,10 @@
 
         public string Strasse { get; set; }
         public string Hausnummer { get; set; }
-        public Guid OrtId { get; set; }
+
+        public string Ortschaft { get; set; }
+        public int Postleitzahl { get; set; }
+
+        //public Guid OrtId { get; set; }
     }
 }
