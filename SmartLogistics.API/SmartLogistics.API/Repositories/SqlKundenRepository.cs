@@ -23,17 +23,12 @@ namespace SmartLogistics.API.Repositories
         {
             return await context.Kunden
                 .Include(nameof(Geschlecht)).Include(nameof(Adresse))
-                .FirstOrDefaultAsync(x=> x.Id ==kundeId);
+                .FirstOrDefaultAsync(x => x.Id == kundeId);
         }
-
-        //public async Task<List<Geschlecht>> GetGeschlechterAsync()
-        //{
-        //    return await context.Geschlechter.ToListAsync();
-        //}
 
         public async Task<bool> Exists(Guid kundenId)
         {
-            return await context.Kunden.AnyAsync(x=> x.Id == kundenId);
+            return await context.Kunden.AnyAsync(x => x.Id == kundenId);
         }
 
         public async Task<Kunde> UpdateKunde(Guid kundenId, Kunde request)
@@ -46,7 +41,7 @@ namespace SmartLogistics.API.Repositories
                 existingKunde.Geburtsdatum = request.Geburtsdatum;
                 existingKunde.Email = request.Email;
                 existingKunde.Telefon = request.Telefon;
-                existingKunde.GeschlechtId= request.GeschlechtId;
+                existingKunde.GeschlechtId = request.GeschlechtId;
                 existingKunde.Adresse.Strasse = request.Adresse.Strasse;
                 existingKunde.Adresse.Hausnummer = request.Adresse.Hausnummer;
 
@@ -60,7 +55,7 @@ namespace SmartLogistics.API.Repositories
         public async Task<Kunde> DeleteKunde(Guid kundenId)
         {
             var kunde = await GetKundeAsync(kundenId);
-            if(kunde != null)
+            if (kunde != null)
             {
                 context.Kunden.Remove(kunde);
                 await context.SaveChangesAsync();
@@ -71,14 +66,9 @@ namespace SmartLogistics.API.Repositories
 
         public async Task<Kunde> AddKunde(Kunde request)
         {
-            var newKunde= await context.Kunden.AddAsync(request);
+            var newKunde = await context.Kunden.AddAsync(request);
             context.SaveChangesAsync();
             return newKunde.Entity;
         }
-
-        //public async Task<Geschlecht> GetGeschlechtAsync(Guid geschlechtId)
-        //{
-        //    return await context.Geschlechter.FirstOrDefaultAsync(x => x.Id == geschlechtId);
-        //}
     }
 }

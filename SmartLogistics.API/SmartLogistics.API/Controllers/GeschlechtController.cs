@@ -9,13 +9,12 @@ namespace SmartLogistics.API.Controllers
     [ApiController]
     public class GeschlechtController : Controller
     {
-       // public readonly IKundenRepository kundenReposiotry;
         private readonly IGeschlechtRepsitory geschlechtRepsitory;
         public readonly IMapper mapper;
 
-        public GeschlechtController (/*IKundenRepository kundenReposiotry,*/ IGeschlechtRepsitory geschlechtRepsitory, IMapper mapper)
+        public GeschlechtController (IGeschlechtRepsitory geschlechtRepsitory, IMapper mapper)
         {
-           // this.kundenReposiotry = kundenReposiotry;
+
             this.geschlechtRepsitory = geschlechtRepsitory;
             this.mapper = mapper;
         }

@@ -13,19 +13,51 @@ namespace SmartLogistics.API.Repositories
             this.context = context;
         }
 
-        public Task<Geschlecht> AddGeschlecht(Geschlecht request)
+        public async Task<List<Geschlecht>> GetGeschlechterAsync()
         {
-            throw new NotImplementedException();
+            return await context.Geschlechter.ToListAsync();
         }
 
         public async Task<Geschlecht> GetGeschlechtAsync(Guid geschlechtId)
         {
             return await context.Geschlechter.FirstOrDefaultAsync(x => x.Id == geschlechtId);
         }
-
-        public async Task<List<Geschlecht>> GetGeschlechterAsync()
+        public async Task<bool> Exists(Guid geschlechtId)
         {
-            return await context.Geschlechter.ToListAsync();
+            return await context.Geschlechter.AnyAsync(x => x.Id == geschlechtId);
+        }
+
+        public async Task<Geschlecht> UpdateGeschlecht(Guid geschlechtId, Geschlecht request)
+        {
+            var existingGeschlecht = await GetGeschlechtAsync(geschlechtId);
+            if (existingGeschlecht != null)
+            {
+                existingGeschlecht.Beschreibung = request.Beschreibung;
+
+                await context.SaveChangesAsync();
+                return existingGeschlecht;
+            }
+
+            return null;
+        }
+
+        public async Task<Geschlecht> DeletGeschlecht(Guid geschlechtId)
+        {
+            var geschlecht = await GetGeschlechtAsync(geschlechtId);
+            if (geschlecht != null)
+            {
+                context.Geschlechter.Remove(geschlecht);
+                await context.SaveChangesAsync();
+            }
+
+            return null;
+        }
+
+        public async Task<Geschlecht> AddGeschlecht(Geschlecht request)
+        {
+            var newGeschlecht = await context.Geschlechter.AddAsync(request);
+            context.SaveChangesAsync();
+            return newGeschlecht.Entity;
         }
     }
 }
