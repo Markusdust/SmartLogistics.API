@@ -10,7 +10,9 @@ namespace SmartLogistics.API.Repositories
 
         Task<Kunde> GetKundeAsync(Guid kundeId);
 
-        Task<List<Geschlecht>> GetGeschlechterAsync();
+        //Task<Geschlecht> GetGeschlechtAsync(Guid geschlechtId);
+
+        //Task<List<Geschlecht>> GetGeschlechterAsync();
 
         Task<bool>Exists(Guid kundenId);
 

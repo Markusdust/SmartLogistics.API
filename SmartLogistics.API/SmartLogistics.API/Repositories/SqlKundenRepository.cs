@@ -26,10 +26,10 @@ namespace SmartLogistics.API.Repositories
                 .FirstOrDefaultAsync(x=> x.Id ==kundeId);
         }
 
-        public async Task<List<Geschlecht>> GetGeschlechterAsync()
-        {
-            return await context.Geschlechter.ToListAsync();
-        }
+        //public async Task<List<Geschlecht>> GetGeschlechterAsync()
+        //{
+        //    return await context.Geschlechter.ToListAsync();
+        //}
 
         public async Task<bool> Exists(Guid kundenId)
         {
@@ -75,5 +75,10 @@ namespace SmartLogistics.API.Repositories
             context.SaveChangesAsync();
             return newKunde.Entity;
         }
+
+        //public async Task<Geschlecht> GetGeschlechtAsync(Guid geschlechtId)
+        //{
+        //    return await context.Geschlechter.FirstOrDefaultAsync(x => x.Id == geschlechtId);
+        //}
     }
 }

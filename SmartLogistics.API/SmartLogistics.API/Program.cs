@@ -22,6 +22,7 @@ builder.Services.AddDbContext<SmartLogisticsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("SmartLogisticsAdminPortalDb")));
 
 builder.Services.AddScoped<IKundenRepository, SqlKundenRepository>();
+builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
