@@ -43,6 +43,9 @@ namespace SmartLogistics.API.Profiles
             CreateMap<AddGeschlechtRequest, DataModels.Geschlecht>()
                 .AfterMap<AddGeschlechtRequestAfterMap>();
 
+            CreateMap<UpdateGeschlechtRequest, Geschlecht>()
+                .AfterMap<UpdateGeschlechtRequestAfterMap>();
+
         }
     }
 }

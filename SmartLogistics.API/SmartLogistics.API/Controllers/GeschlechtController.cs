@@ -12,7 +12,7 @@ namespace SmartLogistics.API.Controllers
         private readonly IGeschlechtRepsitory geschlechtRepsitory;
         public readonly IMapper mapper;
 
-        public GeschlechtController (IGeschlechtRepsitory geschlechtRepsitory, IMapper mapper)
+        public GeschlechtController(IGeschlechtRepsitory geschlechtRepsitory, IMapper mapper)
         {
 
             this.geschlechtRepsitory = geschlechtRepsitory;
@@ -45,6 +45,38 @@ namespace SmartLogistics.API.Controllers
                 return NotFound();
             }
             return Ok(mapper.Map<GeschlechtDto>(geschlecht));
+        }
+
+        [HttpPut]
+        [Route("[controller]/{geschlechtId:guid}")]
+        public async Task<IActionResult> UpdateGeschlechtAsync([FromRoute] Guid geschlechtId, [FromBody] UpdateGeschlechtRequest request)
+        {
+            if (await geschlechtRepsitory.Exists(geschlechtId))
+            {
+                //update Details
+                var updateGeschlecht = await geschlechtRepsitory.UpdateGeschlecht(geschlechtId, mapper.Map<Geschlecht>(request));
+
+                if (updateGeschlecht != null)
+                {
+                    return Ok(mapper.Map<GeschlechtDto>(updateGeschlecht));
+                }
+            }
+            return NotFound();
+
+        }
+
+        [HttpDelete]
+        [Route("[controller]/{geschlechtId:guid}")]
+        public async Task<IActionResult> DeleteGeschlechtAsysnc([FromRoute] Guid geschlechtId)
+        {
+            if (await geschlechtRepsitory.Exists(geschlechtId))
+            {
+                var geschlecht = await geschlechtRepsitory.DeletGeschlecht(geschlechtId);
+                return Ok(mapper.Map<GeschlechtDto>(geschlecht));
+
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
