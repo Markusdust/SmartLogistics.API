@@ -2,7 +2,8 @@
 using DataModels = SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.DataModels;
-using SmartLogistics.API.Profiles.AfterMaps;
+using SmartLogistics.API.Profiles.AfterMaps.KundeAfterMaps;
+using SmartLogistics.API.Profiles.AfterMaps.GeschlechtAfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {

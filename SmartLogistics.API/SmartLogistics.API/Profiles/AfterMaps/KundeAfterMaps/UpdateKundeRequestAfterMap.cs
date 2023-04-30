@@ -2,7 +2,7 @@
 using DataModels = SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
 
-namespace SmartLogistics.API.Profiles.AfterMaps
+namespace SmartLogistics.API.Profiles.AfterMaps.KundeAfterMaps
 {
     public class UpdateKundeRequestAfterMap : IMappingAction<UpdateKundeRequest, DataModels.Kunde>
     {
