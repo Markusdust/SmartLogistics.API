@@ -23,6 +23,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("SmartLogisticsAd
 
 builder.Services.AddScoped<IKundenRepository, SqlKundenRepository>();
 builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
+builder.Services.AddScoped<IProdukteRepository, SqlProduktRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
