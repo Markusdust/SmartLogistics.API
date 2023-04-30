@@ -67,7 +67,7 @@ namespace SmartLogistics.API.Repositories
         public async Task<Kunde> AddKunde(Kunde request)
         {
             var newKunde = await context.Kunden.AddAsync(request);
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return newKunde.Entity;
         }
     }

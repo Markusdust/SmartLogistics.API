@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
+using SmartLogistics.API.DomainModels.AddDomainModels;
+using SmartLogistics.API.DomainModels.UpdateDomainModels;
 using SmartLogistics.API.Repositories;
 
 namespace SmartLogistics.API.Controllers

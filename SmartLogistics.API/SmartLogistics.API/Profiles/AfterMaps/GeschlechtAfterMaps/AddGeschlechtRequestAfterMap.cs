@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SmartLogistics.API.DataModels;
-using SmartLogistics.API.DomainModels;
+using SmartLogistics.API.DomainModels.AddDomainModels;
 
 namespace SmartLogistics.API.Profiles.AfterMaps.GeschlechtAfterMaps
 {

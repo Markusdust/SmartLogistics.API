@@ -1,4 +1,4 @@
-﻿namespace SmartLogistics.API.DomainModels
+﻿namespace SmartLogistics.API.DomainModels.UpdateDomainModels
 {
     public class UpdateGeschlechtRequest
     {

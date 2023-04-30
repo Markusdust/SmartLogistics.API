@@ -56,7 +56,7 @@ namespace SmartLogistics.API.Repositories
         public async Task<Geschlecht> AddGeschlecht(Geschlecht request)
         {
             var newGeschlecht = await context.Geschlechter.AddAsync(request);
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return newGeschlecht.Entity;
         }
     }

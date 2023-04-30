@@ -4,6 +4,9 @@ using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.DataModels;
 using SmartLogistics.API.Profiles.AfterMaps.KundeAfterMaps;
 using SmartLogistics.API.Profiles.AfterMaps.GeschlechtAfterMaps;
+using SmartLogistics.API.DomainModels.UpdateDomainModels;
+using SmartLogistics.API.DomainModels.AddDomainModels;
+using SmartLogistics.API.Profiles.AfterMaps.ProduktAfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {
@@ -46,6 +49,12 @@ namespace SmartLogistics.API.Profiles
 
             CreateMap<UpdateGeschlechtRequest, Geschlecht>()
                 .AfterMap<UpdateGeschlechtRequestAfterMap>();
+
+            CreateMap<UpdateProduktRequest, Produkt>()
+               .AfterMap<UpdateProduktRequestAfterMap>();
+
+            CreateMap<AddProduktRequest, DataModels.Produkt>()
+                .AfterMap<AddProduktRequestAfterMap>();
 
         }
     }

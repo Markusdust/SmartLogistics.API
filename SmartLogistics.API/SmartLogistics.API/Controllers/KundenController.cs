@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
+using SmartLogistics.API.DomainModels.AddDomainModels;
+using SmartLogistics.API.DomainModels.UpdateDomainModels;
 using SmartLogistics.API.Repositories;
 
 namespace SmartLogistics.API.Controllers
@@ -25,7 +27,6 @@ namespace SmartLogistics.API.Controllers
             var kunden = await kundenRepository.GetKundenAsync();
 
             return Ok(mapper.Map<List<KundeDto>>(kunden));
-
         }
 
         [HttpGet]
@@ -79,7 +80,7 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]/Add")]
         public async Task<IActionResult> AddKundeAsync([FromBody] AddKundeRequest request)
         {
-            var kunde= await kundenRepository.AddKunde(mapper.Map<Kunde>(request));
+            var kunde = await kundenRepository.AddKunde(mapper.Map<Kunde>(request));
             return CreatedAtAction(nameof(GetKundeAsync), new { kundeId = kunde.Id },
                 mapper.Map<KundeDto>(kunde));
         }

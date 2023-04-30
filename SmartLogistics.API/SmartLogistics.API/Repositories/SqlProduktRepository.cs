@@ -52,7 +52,7 @@ namespace SmartLogistics.API.Repositories
         public async Task<Produkt> AddProdukt(Produkt request)
         {
             var newProdukt = await context.Produkte.AddAsync(request);
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return newProdukt.Entity;
         }
     }
