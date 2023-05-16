@@ -4,7 +4,7 @@ using SmartLogistics.API.DataModels;
 using SmartLogistics.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var isDevelopment = builder.Environment.IsDevelopment();
 // Add services to the container.
 
 builder.Services.AddCors((options) =>
@@ -18,8 +18,17 @@ builder.Services.AddCors((options) =>
     });
 });
 builder.Services.AddControllers();
-builder.Services.AddDbContext<SmartLogisticsContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("SmartLogisticsAdminPortalDb")));
+
+if(isDevelopment)
+{
+    builder.Services.AddDbContext<SmartLogisticsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SmartLogisticsDEV")));
+} else
+{
+    builder.Services.AddDbContext<SmartLogisticsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SmartLogisticsPROD")));
+}
+
 
 builder.Services.AddScoped<IKundenRepository, SqlKundenRepository>();
 builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
