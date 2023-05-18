@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["SmartLogistics.API.csproj", "SmartLogistics.API/"]
+COPY ["SmartLogistics.API/SmartLogistics.API.csproj", "SmartLogistics.API/"]
 RUN dotnet restore "SmartLogistics.API/SmartLogistics.API.csproj"
 COPY . .
 WORKDIR "/src/SmartLogistics.API"
