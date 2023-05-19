@@ -7,6 +7,7 @@ using SmartLogistics.API.Profiles.AfterMaps.GeschlechtAfterMaps;
 using SmartLogistics.API.DomainModels.UpdateDomainModels;
 using SmartLogistics.API.DomainModels.AddDomainModels;
 using SmartLogistics.API.Profiles.AfterMaps.ProduktAfterMaps;
+using SmartLogistics.API.Profiles.AfterMaps.RoboterAfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {
@@ -55,6 +56,12 @@ namespace SmartLogistics.API.Profiles
 
             CreateMap<AddProduktRequest, DataModels.Produkt>()
                 .AfterMap<AddProduktRequestAfterMap>();
+
+            CreateMap<UpdateRoboterRequest, Roboter>()
+               .AfterMap<UpdateRoboterRequestAfterMap>();
+
+            CreateMap<AddRoboterRequest, DataModels.Roboter>()
+                .AfterMap<AddRoboterRequestAfterMap>();
 
         }
     }
