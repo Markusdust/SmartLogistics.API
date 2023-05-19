@@ -8,6 +8,7 @@ using SmartLogistics.API.DomainModels.UpdateDomainModels;
 using SmartLogistics.API.DomainModels.AddDomainModels;
 using SmartLogistics.API.Profiles.AfterMaps.ProduktAfterMaps;
 using SmartLogistics.API.Profiles.AfterMaps.RoboterAfterMaps;
+using SmartLogistics.API.Profiles.AfterMaps.LagerplatzAfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {
@@ -39,6 +40,9 @@ namespace SmartLogistics.API.Profiles
             CreateMap<DataModels.Roboter, RoboterDto>()
                 .ReverseMap();
 
+            CreateMap<DataModels.Lagerplatz, LagerplatzDto>()
+                .ReverseMap();
+
             CreateMap<UpdateKundeRequest, Kunde>()
                 .AfterMap<UpdateKundeRequestAfterMap>();
 
@@ -62,6 +66,12 @@ namespace SmartLogistics.API.Profiles
 
             CreateMap<AddRoboterRequest, DataModels.Roboter>()
                 .AfterMap<AddRoboterRequestAfterMap>();
+
+            CreateMap<UpdateLagerplatzRequest, Lagerplatz>()
+               .AfterMap<UpdateLagerplatzRequestAfterMap>();
+
+            CreateMap<AddLagerplatzRequest, DataModels.Lagerplatz>()
+                .AfterMap<AddLagerplatzRequestAfterMap>();
 
         }
     }
