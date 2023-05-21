@@ -1,4 +1,4 @@
-﻿using MQTT;
+﻿
 
 namespace SmartLogistics.API.Repositories
 {
@@ -6,8 +6,9 @@ namespace SmartLogistics.API.Repositories
     {
         public string GetBatteryAsync()
         {
-            var test = ValueStorage.BatteryStatus;
-            return ValueStorage.BatteryStatus;
+            //var test = ValueStorage.BatteryStatus;
+            //return ValueStorage.BatteryStatus;
+            return "hi";
         }
     }
 }

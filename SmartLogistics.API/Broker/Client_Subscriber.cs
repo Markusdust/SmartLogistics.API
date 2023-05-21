@@ -1,27 +1,16 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Security.Authentication;
 using System.Text;
-using MQTT.Helpers;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Formatter;
+using Broker.Helpers;
 
-
-namespace MQTT
+namespace Broker
 {
-    public class Client_Subscriber
+    internal class Client_Subscriber
     {
-        private static string batteryStatus = null;
-        
-        public string GetBatteryStatus()
-        {
-            return batteryStatus;
-        }
-
-        private static void SetBatteryStatus(string value)
-        {
-            batteryStatus = value;
-        }
+        private  string RobotBatteryStatus { get; set; }
 
         public static async Task Clean_Disconnect()
         {
@@ -38,7 +27,7 @@ namespace MQTT
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder().WithTcpServer("localhost").Build();
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
-               
+
                 // This will send the DISCONNECT packet. Calling _Dispose_ without DisconnectAsync the 
                 // connection is closed in a "not clean" way. See MQTT specification for more details.
                 await mqttClient.DisconnectAsync(new MqttClientDisconnectOptionsBuilder().WithReason(MqttClientDisconnectOptionsReason.NormalDisconnection).Build());
@@ -96,11 +85,14 @@ namespace MQTT
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
                     Console.WriteLine("Received application message.");
-                  //  e.DumpToConsole();
-                 //  Console.WriteLine($"Received message: Topic={e.ApplicationMessage.Topic}, Payload={Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
+                    //  e.DumpToConsole();
+                    //  Console.WriteLine($"Received message: Topic={e.ApplicationMessage.Topic}, Payload={Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
-                    ValueStorage.BatteryStatus = "123";
+                    //BatterieStaus.BatterieWert = "sdF";
+
+                    BatterieStaus batterieStaus = new BatterieStaus();
+                    batterieStaus.BatterieWert = "234";
 
                     return Task.CompletedTask;
                 };
@@ -154,5 +146,10 @@ namespace MQTT
                 response.DumpToConsole();
             }
         }
+
+        //public static string GetBattery()
+        //{
+
+        //}
     }
 }

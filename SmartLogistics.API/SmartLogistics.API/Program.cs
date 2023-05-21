@@ -1,7 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SmartLogistics.API;
 using SmartLogistics.API.DataModels;
 using SmartLogistics.API.Repositories;
+
+
+TestWertebekommen versuch = new TestWertebekommen();
+versuch.GetMethode();
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 var isDevelopment = builder.Environment.IsDevelopment();

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MQTT\MQTT.csproj" />
+    <ProjectReference Include="..\Broker\Broker.csproj" />
   </ItemGroup>
 
 </Project>
