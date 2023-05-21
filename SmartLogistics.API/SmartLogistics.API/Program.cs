@@ -13,6 +13,8 @@ builder.Services.AddCors((options) =>
     {
         builder.WithOrigins("http://localhost:4200")
         .AllowAnyHeader()
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
         .WithMethods("GET", "POST", "PUT", "DELETE")
         .WithExposedHeaders("*");
     });
@@ -33,8 +35,6 @@ if(isDevelopment)
 builder.Services.AddScoped<IKundenRepository, SqlKundenRepository>();
 builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
 builder.Services.AddScoped<IProdukteRepository, SqlProduktRepository>();
-builder.Services.AddScoped<IRoboterRepository, SqlRoboterRepository>();
-builder.Services.AddScoped<ILagerplatzRepository, SqlLagerplatzRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
