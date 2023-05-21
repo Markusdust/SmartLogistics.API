@@ -5,9 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLogistics.API", "SmartLogistics.API\SmartLogistics.API.csproj", "{2268EB25-D32F-4C84-A3CE-26603D5B246D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTT", "MQTT\MQTT.csproj", "{2841E852-A133-43BE-B259-DD4F06B0368F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Broker", "Broker\Broker.csproj", "{21BC32E4-4201-4289-BAA1-BCE40BB05BAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Broker", "Broker\Broker.csproj", "{21BC32E4-4201-4289-BAA1-BCE40BB05BAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{2268EB25-D32F-4C84-A3CE-26603D5B246D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2268EB25-D32F-4C84-A3CE-26603D5B246D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2268EB25-D32F-4C84-A3CE-26603D5B246D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2841E852-A133-43BE-B259-DD4F06B0368F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2841E852-A133-43BE-B259-DD4F06B0368F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2841E852-A133-43BE-B259-DD4F06B0368F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2841E852-A133-43BE-B259-DD4F06B0368F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21BC32E4-4201-4289-BAA1-BCE40BB05BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21BC32E4-4201-4289-BAA1-BCE40BB05BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21BC32E4-4201-4289-BAA1-BCE40BB05BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
