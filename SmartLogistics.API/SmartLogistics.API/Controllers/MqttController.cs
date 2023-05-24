@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SmartLogistics.API.DomainModels;
+using SmartLogistics.API.MqttConnection;
 using SmartLogistics.API.Repositories;
 using System.Runtime.InteropServices;
 
@@ -22,9 +23,17 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]/{roboterId:guid}/battery"), ActionName("GetRoboterBatteryAsync")]
         public async Task<IActionResult> GetRoboterBatteryAsync(Guid roboterId)
         {
-            var battery= mqttRepository.BatteryLevel;
-            
-            
+
+            //Wenn einmal schon auf id abboniert muss das nicht wieder gemacht werden.
+            ClientSubscribe.Handle_Received_Application_Message(mqttRepository, roboterId);
+
+
+            ////Idee: einmal auf Roboter abonnieren Topic => RoboterIdXY1234/*
+            ///wenn auf alles von robo abonniert dann kann man ja easy nur noch properties auslesen
+
+            var battery = mqttRepository.BatteryLevel;
+
+
             return Ok(battery);
         }
 

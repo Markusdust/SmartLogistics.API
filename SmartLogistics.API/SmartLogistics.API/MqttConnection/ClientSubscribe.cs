@@ -63,7 +63,7 @@ namespace SmartLogistics.API.MqttConnection
             }
         }
 
-        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository)
+        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository, Guid roboterId)
         {
             /*
              * This sample subscribes to a topic and processes the received message.
@@ -97,7 +97,7 @@ namespace SmartLogistics.API.MqttConnection
                     .WithTopicFilter(
                         f =>
                         {
-                            f.WithTopic("RoboterId23432432/Roboterstatus/Batteriestatus");
+                            f.WithTopic(roboterId+"/Roboterstatus/Batteriestatus");
                         })
                     .Build();
 

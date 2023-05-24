@@ -60,7 +60,7 @@ var repo = app.Services.GetService<IMqttRepository>();
 //MQTT subscribe starten
  ClientSubscribe.Connect_Client();
 // Client_Subscriber.Subscribe_Topic();
- ClientSubscribe.Handle_Received_Application_Message(repo);
+ //ClientSubscribe.Handle_Received_Application_Message(repo);
 
 
 
