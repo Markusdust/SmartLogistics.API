@@ -1,17 +1,13 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Authentication;
-using System.Text;
+﻿using MQTTnet.Client;
 using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Formatter;
-using Broker.Helpers;
+using SmartLogistics.API.Repositories;
+using SmartLogistics.API.MqttConnection.Helpers;
+using System.Text;
 
-namespace Broker
+namespace SmartLogistics.API.MqttConnection
 {
-    internal class Client_Subscriber
+    public class ClientSubscribe
     {
-        private  string RobotBatteryStatus { get; set; }
-
         public static async Task Clean_Disconnect()
         {
             /*
@@ -67,7 +63,7 @@ namespace Broker
             }
         }
 
-        public static async Task Handle_Received_Application_Message()
+        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository)
         {
             /*
              * This sample subscribes to a topic and processes the received message.
@@ -89,10 +85,8 @@ namespace Broker
                     //  Console.WriteLine($"Received message: Topic={e.ApplicationMessage.Topic}, Payload={Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
-                    //BatterieStaus.BatterieWert = "sdF";
+                    mqttRepository.BatteryLevel = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
 
-                    BatterieStaus batterieStaus = new BatterieStaus();
-                    batterieStaus.BatterieWert = "234";
 
                     return Task.CompletedTask;
                 };
@@ -146,10 +140,5 @@ namespace Broker
                 response.DumpToConsole();
             }
         }
-
-        //public static string GetBattery()
-        //{
-
-        //}
     }
 }

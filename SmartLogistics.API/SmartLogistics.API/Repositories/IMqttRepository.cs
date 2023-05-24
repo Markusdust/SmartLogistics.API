@@ -4,6 +4,6 @@ namespace SmartLogistics.API.Repositories
 {
     public interface IMqttRepository
     {
-        public string GetBatteryAsync();
+        public string BatteryLevel { get; set; }
     }
 }

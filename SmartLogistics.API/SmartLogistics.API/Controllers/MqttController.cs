@@ -22,10 +22,9 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]/{roboterId:guid}/battery"), ActionName("GetRoboterBatteryAsync")]
         public async Task<IActionResult> GetRoboterBatteryAsync(Guid roboterId)
         {
-            //getBatteryStatusbyId()
-            ///blabla bla
-            var niix = roboterId;
-            var battery = "74";
+            var battery= mqttRepository.BatteryLevel;
+            
+            
             return Ok(battery);
         }
 
