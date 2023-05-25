@@ -39,20 +39,6 @@ namespace SmartLogistics.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lagerverwaltung",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Menge = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Lagerverwaltung", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Lieferungen",
                 columns: table => new
                 {
@@ -128,6 +114,26 @@ namespace SmartLogistics.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Lagerverwaltung",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Menge = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lagerverwaltung", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lagerverwaltung_Produkte_ProduktId",
+                        column: x => x.ProduktId,
+                        principalTable: "Produkte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Adressen",
                 columns: table => new
                 {
@@ -158,6 +164,11 @@ namespace SmartLogistics.API.Migrations
                 name: "IX_Kunden_GeschlechtId",
                 table: "Kunden",
                 column: "GeschlechtId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lagerverwaltung_ProduktId",
+                table: "Lagerverwaltung",
+                column: "ProduktId");
         }
 
         /// <inheritdoc />
@@ -179,13 +190,13 @@ namespace SmartLogistics.API.Migrations
                 name: "Orte");
 
             migrationBuilder.DropTable(
-                name: "Produkte");
-
-            migrationBuilder.DropTable(
                 name: "Roboter");
 
             migrationBuilder.DropTable(
                 name: "Kunden");
+
+            migrationBuilder.DropTable(
+                name: "Produkte");
 
             migrationBuilder.DropTable(
                 name: "Geschlechter");

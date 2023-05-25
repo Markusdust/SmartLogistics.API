@@ -12,7 +12,7 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230525161637_initial")]
+    [Migration("20230525164137_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -144,6 +144,8 @@ namespace SmartLogistics.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProduktId");
+
                     b.ToTable("Lagerverwaltung");
                 });
 
@@ -239,6 +241,17 @@ namespace SmartLogistics.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Geschlecht");
+                });
+
+            modelBuilder.Entity("SmartLogistics.API.DataModels.Lagerverwaltung", b =>
+                {
+                    b.HasOne("SmartLogistics.API.DataModels.Produkt", "Produkt")
+                        .WithMany()
+                        .HasForeignKey("ProduktId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produkt");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Kunde", b =>
