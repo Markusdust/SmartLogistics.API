@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartLogistics.API.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +36,20 @@ namespace SmartLogistics.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Geschlechter", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lagerverwaltung",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Beschreibung = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Menge = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lagerverwaltung", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +168,9 @@ namespace SmartLogistics.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Bestellungen");
+
+            migrationBuilder.DropTable(
+                name: "Lagerverwaltung");
 
             migrationBuilder.DropTable(
                 name: "Lieferungen");

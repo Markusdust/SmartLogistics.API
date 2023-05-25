@@ -1,8 +1,7 @@
-﻿namespace SmartLogistics.API.DomainModels
+﻿namespace SmartLogistics.API.DomainModels.UpdateDomainModels
 {
-    public class LagerplatzDto
+    public class UpdateLagerverwaltungRequest
     {
-        public Guid Id { get; set; }
         public string Beschreibung { get; set; }
         public Guid ProduktId { get; set; }
         public int Menge { get; set; }

@@ -17,6 +17,6 @@ namespace SmartLogistics.API.DataModels
         public DbSet<Lieferung> Lieferungen { get; set; }
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Roboter> Roboter { get; set; }
-        public DbSet<Lagerplatz> Lagerplatz { get; set; }
+        public DbSet<Lagerverwaltung> Lagerverwaltung{ get; set; }
     }
 }

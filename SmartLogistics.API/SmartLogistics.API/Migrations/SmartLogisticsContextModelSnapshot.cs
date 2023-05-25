@@ -123,7 +123,7 @@ namespace SmartLogistics.API.Migrations
                     b.ToTable("Kunden");
                 });
 
-            modelBuilder.Entity("SmartLogistics.API.DataModels.Lagerplatz", b =>
+            modelBuilder.Entity("SmartLogistics.API.DataModels.Lagerverwaltung", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -141,7 +141,7 @@ namespace SmartLogistics.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lagerplatz");
+                    b.ToTable("Lagerverwaltung");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Lieferung", b =>

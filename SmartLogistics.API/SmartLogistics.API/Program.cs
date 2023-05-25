@@ -36,7 +36,7 @@ builder.Services.AddScoped<IKundenRepository, SqlKundenRepository>();
 builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
 builder.Services.AddScoped<IProdukteRepository, SqlProduktRepository>();
 builder.Services.AddScoped<IRoboterRepository, SqlRoboterRepository>();
-builder.Services.AddScoped<ILagerplatzRepository, SqlLagerplatzRepository>();
+builder.Services.AddScoped<ILagerverwaltungRepository, SqlLagerverwaltungRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

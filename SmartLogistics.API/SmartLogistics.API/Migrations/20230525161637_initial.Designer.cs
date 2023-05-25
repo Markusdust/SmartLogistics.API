@@ -12,8 +12,8 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230519204803_add Lageplatz")]
-    partial class addLageplatz
+    [Migration("20230525161637_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,7 +126,7 @@ namespace SmartLogistics.API.Migrations
                     b.ToTable("Kunden");
                 });
 
-            modelBuilder.Entity("SmartLogistics.API.DataModels.Lagerplatz", b =>
+            modelBuilder.Entity("SmartLogistics.API.DataModels.Lagerverwaltung", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,7 @@ namespace SmartLogistics.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lagerplatz");
+                    b.ToTable("Lagerverwaltung");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Lieferung", b =>
