@@ -25,7 +25,7 @@ namespace SmartLogistics.API.Controllers
         public async Task<IActionResult> GetAllLagerverwaltungAsync()
         {
             var lagerverwaltung = await lagerverwaltungRepository.GetAllLagerverwaltungAsync();
-
+            
             return Ok(mapper.Map<List<LagerverwaltungDto>>(lagerverwaltung));
         }
 

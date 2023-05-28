@@ -12,7 +12,7 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230525164137_initial")]
+    [Migration("20230528093455_initial")]
     partial class initial
     {
         /// <inheritdoc />
