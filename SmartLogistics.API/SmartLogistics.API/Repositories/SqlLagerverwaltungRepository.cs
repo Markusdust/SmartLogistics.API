@@ -17,7 +17,7 @@ namespace SmartLogistics.API.Repositories
         }
         public async Task<Lagerverwaltung> GetLagerverwaltungAsync(Guid lagerverwaltungId)
         {
-            return await context.Lagerverwaltung.FirstOrDefaultAsync(x => x.Id == lagerverwaltungId);
+            return await context.Lagerverwaltung.Include(nameof(Produkt)).FirstOrDefaultAsync(x => x.Id == lagerverwaltungId);
         }
         public async Task<bool> Exists(Guid lagerverwaltungId)
         {
