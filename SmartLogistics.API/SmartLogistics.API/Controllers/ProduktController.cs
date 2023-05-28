@@ -25,9 +25,14 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]")]
         public async Task<IActionResult> GetAllProdukteAsync()
         {
-            var produkte = await produktRepository.GetProdukteAsync();
+            var produkteList = await produktRepository.GetProdukteAsync();
 
-            return Ok(mapper.Map<List<ProduktDto>>(produkte));
+            if (produkteList == null || !produkteList.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<List<ProduktDto>>(produkteList));
         }
 
         [HttpGet]
