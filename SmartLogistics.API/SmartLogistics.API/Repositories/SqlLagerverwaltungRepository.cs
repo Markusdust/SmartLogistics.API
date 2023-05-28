@@ -13,7 +13,7 @@ namespace SmartLogistics.API.Repositories
         }
         public async Task<List<Lagerverwaltung>> GetAllLagerverwaltungAsync()
         {
-            return await context.Lagerverwaltung.ToListAsync();
+            return await context.Lagerverwaltung.Include(nameof(Produkt)).ToListAsync();
         }
         public async Task<Lagerverwaltung> GetLagerverwaltungAsync(Guid lagerverwaltungId)
         {
