@@ -72,7 +72,7 @@ namespace SmartLogistics.API.Migrations
                     b.Property<DateTime>("LieferungStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Priorität")
+                    b.Property<string>("Prioritaet")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

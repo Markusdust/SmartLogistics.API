@@ -149,7 +149,7 @@ namespace SmartLogistics.API.Migrations
                     LieferungStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LieferungEnde = table.Column<DateTime>(type: "datetime2", nullable: false),
                     KundeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Priorität = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prioritaet = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lieferart = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

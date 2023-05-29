@@ -10,7 +10,7 @@ namespace SmartLogistics.API.DomainModels
         public DateTime LieferungStart { get; set; }
         public DateTime LieferungEnde { get; set; }
         public Guid KundeId { get; set; }
-        public string Priorität { get; set; }
+        public string Prioritaet { get; set; }
         public string Lieferart { get; set; }
         public string Status { get; set; }
         private Produkt Produkt { get; set; }

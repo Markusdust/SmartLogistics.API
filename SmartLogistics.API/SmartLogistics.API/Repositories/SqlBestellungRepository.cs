@@ -38,7 +38,7 @@ namespace SmartLogistics.API.Repositories
                 existingBestellung.Lieferart = request.Lieferart;
                 existingBestellung.LieferungEnde = request.LieferungEnde;
                 existingBestellung.KundeId = request.KundeId;
-                existingBestellung.Priorität = request.Priorität;
+                existingBestellung.Prioritaet = request.Prioritaet;
                 existingBestellung.Lieferart = request.Lieferart;
                 existingBestellung.Status  = request.Status;
 

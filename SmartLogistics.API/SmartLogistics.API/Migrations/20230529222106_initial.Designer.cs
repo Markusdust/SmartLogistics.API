@@ -12,7 +12,7 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230529192203_initial")]
+    [Migration("20230529222106_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -75,7 +75,7 @@ namespace SmartLogistics.API.Migrations
                     b.Property<DateTime>("LieferungStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Priorität")
+                    b.Property<string>("Prioritaet")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
