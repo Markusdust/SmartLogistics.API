@@ -13,6 +13,8 @@
         //Navigation Properties
         public Geschlecht Geschlecht { get; set; }
         public Adresse Adresse { get; set; }
-        
+
+      //  public ICollection<Bestellung> Bestellungen { get; set; }
+
     }
 }

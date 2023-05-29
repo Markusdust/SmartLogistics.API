@@ -10,7 +10,7 @@ namespace SmartLogistics.API.Repositories
 
         Task<bool> Exists(Guid bestellungId);
 
-        Task<Bestellung> UpdateBestellung(Guid kundenId, Bestellung request);
+        Task<Bestellung> UpdateBestellung(Guid bestellungId, Bestellung request);
 
         Task<Bestellung> DeleteBestellung(Guid bestellungId);
         Task<Bestellung> AddBestellung(Bestellung request);

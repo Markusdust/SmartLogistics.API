@@ -12,25 +12,6 @@ namespace SmartLogistics.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Bestellungen",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Erfassdatum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LieferungStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LieferungEnde = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KundenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Priorität = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Lieferart = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bestellungen", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Geschlechter",
                 columns: table => new
                 {
@@ -158,11 +139,52 @@ namespace SmartLogistics.API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bestellungen",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Erfassdatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LieferungStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LieferungEnde = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KundeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Priorität = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lieferart = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bestellungen", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bestellungen_Kunden_KundeId",
+                        column: x => x.KundeId,
+                        principalTable: "Kunden",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bestellungen_Produkte_ProduktId",
+                        column: x => x.ProduktId,
+                        principalTable: "Produkte",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Adressen_KundeId",
                 table: "Adressen",
                 column: "KundeId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bestellungen_KundeId",
+                table: "Bestellungen",
+                column: "KundeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bestellungen_ProduktId",
+                table: "Bestellungen",
+                column: "ProduktId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kunden_GeschlechtId",

@@ -37,7 +37,7 @@ namespace SmartLogistics.API.Repositories
                 existingBestellung.Erfassdatum = request.Erfassdatum;
                 existingBestellung.Lieferart = request.Lieferart;
                 existingBestellung.LieferungEnde = request.LieferungEnde;
-                existingBestellung.KundenId = request.KundenId;
+                existingBestellung.KundeId = request.KundeId;
                 existingBestellung.Priorität = request.Priorität;
                 existingBestellung.Lieferart = request.Lieferart;
                 existingBestellung.Status  = request.Status;

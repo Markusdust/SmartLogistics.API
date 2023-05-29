@@ -12,7 +12,7 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230529132425_initial")]
+    [Migration("20230529155812_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace SmartLogistics.API.Migrations
                     b.Property<DateTime>("Erfassdatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("KundenId")
+                    b.Property<Guid>("KundeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Lieferart")
@@ -87,6 +87,10 @@ namespace SmartLogistics.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KundeId");
+
+                    b.HasIndex("ProduktId");
 
                     b.ToTable("Bestellungen");
                 });
@@ -245,6 +249,25 @@ namespace SmartLogistics.API.Migrations
                         .HasForeignKey("SmartLogistics.API.DataModels.Adresse", "KundeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartLogistics.API.DataModels.Bestellung", b =>
+                {
+                    b.HasOne("SmartLogistics.API.DataModels.Kunde", "Kunde")
+                        .WithMany()
+                        .HasForeignKey("KundeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartLogistics.API.DataModels.Produkt", "Produkt")
+                        .WithMany()
+                        .HasForeignKey("ProduktId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kunde");
+
+                    b.Navigation("Produkt");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Kunde", b =>
