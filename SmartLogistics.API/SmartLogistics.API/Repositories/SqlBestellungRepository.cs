@@ -14,31 +14,59 @@ namespace SmartLogistics.API.Repositories
 
         public async Task<List<Bestellung>> GetBestellungenAsync()
         {
-            return await context.Bestellungen.Include(nameof(Geschlecht)).Include(nameof(Adresse)).ToListAsync();
+            return await context.Bestellungen.Include(nameof(Kunde)).Include(nameof(Produkt)).ToListAsync();
         }
 
         public async Task<Bestellung> GetBestellungAsync(Guid bestellungId)
         {
-            throw new NotImplementedException();
+            return await context.Bestellungen
+               .Include(nameof(Kunde)).Include(nameof(Produkt))
+               .FirstOrDefaultAsync(x => x.Id == bestellungId);
         }
         public async Task<bool> Exists(Guid bestellungId)
         {
-            throw new NotImplementedException();
+            return await context.Bestellungen.AnyAsync(x => x.Id == bestellungId);
         }
 
-        public async Task<Bestellung> UpdateBestellung(Guid kundenId, Bestellung request)
+        public async Task<Bestellung> UpdateBestellung(Guid bestellungId, Bestellung request)
         {
-            throw new NotImplementedException();
+            var existingBestellung = await GetBestellungAsync(bestellungId);
+            if (existingBestellung != null)
+            {
+                existingBestellung.ProduktId = request.ProduktId;
+                existingBestellung.Erfassdatum = request.Erfassdatum;
+                existingBestellung.Lieferart = request.Lieferart;
+                existingBestellung.LieferungEnde = request.LieferungEnde;
+                existingBestellung.KundenId = request.KundenId;
+                existingBestellung.Priorität = request.Priorität;
+                existingBestellung.Lieferart = request.Lieferart;
+                existingBestellung.Status  = request.Status;
+
+
+                await context.SaveChangesAsync();
+                return existingBestellung;
+            }
+
+            return null;
         }
 
         public async Task<Bestellung> DeleteBestellung(Guid bestellungId)
         {
-            throw new NotImplementedException();
+            var bestellung = await GetBestellungAsync(bestellungId);
+            if (bestellung != null)
+            {
+                context.Bestellungen.Remove(bestellung);
+                await context.SaveChangesAsync();
+            }
+
+            return null;
         }
 
         public async Task<Bestellung> AddBestellung(Bestellung request)
         {
-            throw new NotImplementedException();
+            var newBestellung = await context.Bestellungen.AddAsync(request);
+            await context.SaveChangesAsync();
+            return newBestellung.Entity;
         }
     }
 }

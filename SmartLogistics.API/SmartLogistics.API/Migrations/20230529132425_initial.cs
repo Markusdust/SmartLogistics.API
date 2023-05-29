@@ -16,10 +16,14 @@ namespace SmartLogistics.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProduktId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Erfassdatum = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LieferungStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LieferungEnde = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KundenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    KundenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Priorität = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lieferart = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

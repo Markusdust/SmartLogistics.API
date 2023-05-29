@@ -73,6 +73,11 @@ namespace SmartLogistics.API.Profiles
             CreateMap<AddLagerverwaltungRequest, DataModels.Lagerverwaltung>()
                 .AfterMap<AddLagerverwaltungRequestAfterMap>();
 
+            CreateMap<UpdateBestellungRequest, Bestellung>()
+                .AfterMap<UpdateBestellungRequestAfterMap>();
+
+            CreateMap<AddBestellungRequest, DataModels.Bestellung>()
+                .AfterMap<AddBestellungRequestAfterMap>();
         }
     }
 }

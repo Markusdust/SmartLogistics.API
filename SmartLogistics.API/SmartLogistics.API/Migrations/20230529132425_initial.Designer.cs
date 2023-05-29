@@ -12,7 +12,7 @@ using SmartLogistics.API.DataModels;
 namespace SmartLogistics.API.Migrations
 {
     [DbContext(typeof(SmartLogisticsContext))]
-    [Migration("20230528093455_initial")]
+    [Migration("20230529132425_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -65,11 +65,26 @@ namespace SmartLogistics.API.Migrations
                     b.Property<Guid>("KundenId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Lieferart")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LieferungEnde")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LieferungStart")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Priorität")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProduktId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

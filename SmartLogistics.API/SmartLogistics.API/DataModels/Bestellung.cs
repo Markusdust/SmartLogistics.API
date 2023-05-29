@@ -11,5 +11,7 @@
         public string Priorität { get; set; }
         public string Lieferart { get; set; }
         public string Status { get; set; }
+        private Produkt Produkt { get; set; }
+        private Kunde Kunde { get; set; }
     }
 }

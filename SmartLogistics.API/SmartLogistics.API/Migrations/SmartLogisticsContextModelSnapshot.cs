@@ -62,11 +62,26 @@ namespace SmartLogistics.API.Migrations
                     b.Property<Guid>("KundenId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Lieferart")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LieferungEnde")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LieferungStart")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Priorität")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProduktId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
