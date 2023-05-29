@@ -13,7 +13,7 @@ namespace SmartLogistics.API.DomainModels
         public string Prioritaet { get; set; }
         public string Lieferart { get; set; }
         public string Status { get; set; }
-        private Produkt Produkt { get; set; }
-        private Kunde Kunde { get; set; }
+        public Produkt Produkt { get; set; }
+        public Kunde Kunde { get; set; }
     }
 }
