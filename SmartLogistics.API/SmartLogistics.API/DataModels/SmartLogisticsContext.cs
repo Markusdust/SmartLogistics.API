@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace SmartLogistics.API.DataModels
@@ -24,7 +25,7 @@ namespace SmartLogistics.API.DataModels
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.LogTo(_logStream.WriteLine);
+            options.LogTo(_logStream.WriteLine, LogLevel.Information);
         }
 
         public override void Dispose()
