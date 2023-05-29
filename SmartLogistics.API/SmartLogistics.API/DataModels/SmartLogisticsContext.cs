@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace SmartLogistics.API.DataModels
 {
@@ -18,5 +19,24 @@ namespace SmartLogistics.API.DataModels
         public DbSet<Produkt> Produkte { get; set; }
         public DbSet<Roboter> Roboter { get; set; }
         public DbSet<Lagerverwaltung> Lagerverwaltung{ get; set; }
+
+        private readonly StreamWriter _logStream = new StreamWriter("mylogs.txt", append: true);
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.LogTo(_logStream.WriteLine);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _logStream.Dispose();
+        }
+
+        public override async ValueTask DisposeAsync()
+        {
+            await base.DisposeAsync();
+            await _logStream.DisposeAsync();
+        }
     }
 }
