@@ -5,17 +5,20 @@ using SmartLogistics.API.DomainModels.AddDomainModels;
 using SmartLogistics.API.DomainModels.UpdateDomainModels;
 using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.Repositories;
+using SmartLogistics.API.MqttConnection;
 
 namespace SmartLogistics.API.Controllers
 {
     [ApiController]
     public class BestellungController : Controller
     {
+        private readonly IMqttRepository mqttRepository;
         private readonly IBestellungRepository bestellungRepository;
         private readonly IMapper mapper;
 
-        public BestellungController(IBestellungRepository bestellungRepository, IMapper mapper)
+        public BestellungController(IMqttRepository mqttRepository, IBestellungRepository bestellungRepository, IMapper mapper)
         {
+            this.mqttRepository = mqttRepository;
             this.bestellungRepository = bestellungRepository;
             this.mapper = mapper;
         }
@@ -38,6 +41,29 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]/{bestellungId:guid}"), ActionName("GetBestellungAsync")]
         public async Task<IActionResult> GetBestellungAsync([FromRoute] Guid bestellungId)
         {
+            //////////MQTT TEST
+            ///WIRD HIER GEMACHT WEIL  DAS VON BUTTON AUSGELÖST WIRD
+            ///
+            var bestellungsList = await bestellungRepository.GetBestellungenAsync();
+
+            string stringbestellung="";
+
+            foreach (var item in bestellungsList)
+            {
+                stringbestellung += item.Id+"/";
+                stringbestellung += item.KundeId + "/";
+                stringbestellung += item.ProduktId + "/";
+                stringbestellung += item.Prioritaet;
+                stringbestellung += ";";
+            }
+
+
+            var showme = stringbestellung;
+            Client.Publish_Application_Message(mqttRepository, stringbestellung);
+
+
+
+            //////////////////////////////////////////
             //Fetch bestellungen Details
             var bestellung = await bestellungRepository.GetBestellungAsync(bestellungId);
 
@@ -47,6 +73,8 @@ namespace SmartLogistics.API.Controllers
                 return NotFound();
             }
             return Ok(mapper.Map<BestellungDto>(bestellung));
+
+
         }
 
         [HttpPut]
