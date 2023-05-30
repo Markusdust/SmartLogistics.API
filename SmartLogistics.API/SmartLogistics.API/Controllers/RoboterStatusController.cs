@@ -29,7 +29,7 @@ namespace SmartLogistics.API.Controllers
             var batterieStatus = mqttRepository.BatteryLevel;
 
 
-            return Ok(batterieStatus);
+            return Ok("Batteriestatus"+batterieStatus+"%");
         }
 
     }
