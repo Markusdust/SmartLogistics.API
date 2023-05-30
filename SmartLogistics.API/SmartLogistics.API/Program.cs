@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SmartLogistics.API.DataModels;
+using SmartLogistics.API.MqttConnection;
 using SmartLogistics.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +38,9 @@ builder.Services.AddScoped<IGeschlechtRepsitory, SqlGeschlechtRepository>();
 builder.Services.AddScoped<IProdukteRepository, SqlProduktRepository>();
 builder.Services.AddScoped<IRoboterRepository, SqlRoboterRepository>();
 builder.Services.AddScoped<ILagerverwaltungRepository, SqlLagerverwaltungRepository>();
+builder.Services.AddScoped<IBestellungRepository, SqlBestellungRepository>();
+
+builder.Services.AddSingleton<IMqttRepository, MqttRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -46,6 +50,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+
+var repo = app.Services.GetService<IMqttRepository>();
+await Client.Connect_Client();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

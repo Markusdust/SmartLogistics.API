@@ -59,8 +59,12 @@ namespace SmartLogistics.API.Migrations
                     b.Property<DateTime>("Erfassdatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("KundenId")
+                    b.Property<Guid>("KundeId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Lieferart")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LieferungEnde")
                         .HasColumnType("datetime2");
@@ -68,7 +72,22 @@ namespace SmartLogistics.API.Migrations
                     b.Property<DateTime>("LieferungStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Prioritaet")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProduktId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("KundeId");
+
+                    b.HasIndex("ProduktId");
 
                     b.ToTable("Bestellungen");
                 });
@@ -227,6 +246,25 @@ namespace SmartLogistics.API.Migrations
                         .HasForeignKey("SmartLogistics.API.DataModels.Adresse", "KundeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartLogistics.API.DataModels.Bestellung", b =>
+                {
+                    b.HasOne("SmartLogistics.API.DataModels.Kunde", "Kunde")
+                        .WithMany()
+                        .HasForeignKey("KundeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartLogistics.API.DataModels.Produkt", "Produkt")
+                        .WithMany()
+                        .HasForeignKey("ProduktId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kunde");
+
+                    b.Navigation("Produkt");
                 });
 
             modelBuilder.Entity("SmartLogistics.API.DataModels.Kunde", b =>

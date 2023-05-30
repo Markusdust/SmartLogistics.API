@@ -1,10 +1,7 @@
-﻿using SmartLogistics.API.DataModels;
-
-namespace SmartLogistics.API.DomainModels
+﻿namespace SmartLogistics.API.DomainModels.AddDomainModels
 {
-    public class BestellungDto
+    public class AddBestellungRequest
     {
-        public Guid Id { get; set; }
         public Guid ProduktId { get; set; }
         public DateTime Erfassdatum { get; set; }
         public DateTime LieferungStart { get; set; }
@@ -13,7 +10,5 @@ namespace SmartLogistics.API.DomainModels
         public string Prioritaet { get; set; }
         public string Lieferart { get; set; }
         public string Status { get; set; }
-        public Produkt Produkt { get; set; }
-        public Kunde Kunde { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using SmartLogistics.API.DataModels;
 using SmartLogistics.API.DomainModels;
 using SmartLogistics.API.DomainModels.AddDomainModels;
 using SmartLogistics.API.DomainModels.UpdateDomainModels;
+using SmartLogistics.API.MqttConnection;
 using SmartLogistics.API.Repositories;
 
 namespace SmartLogistics.API.Controllers
@@ -11,13 +12,15 @@ namespace SmartLogistics.API.Controllers
     [ApiController]
     public class KundenController : Controller
     {
+        private readonly IMqttRepository mqttRepository;
         private readonly IKundenRepository kundenRepository;
         private readonly IMapper mapper;
 
-        public KundenController(IKundenRepository kundenRepository, IMapper mapper)
+        public KundenController(IMqttRepository mqttRepository, IKundenRepository kundenRepository, IMapper mapper)
         {
             this.kundenRepository = kundenRepository;
             this.mapper = mapper;
+            this.mqttRepository = mqttRepository;
         }
 
         [HttpGet]
@@ -25,6 +28,10 @@ namespace SmartLogistics.API.Controllers
         public async Task<IActionResult> GetAllKundenAsync()
         {
             var kunden = await kundenRepository.GetKundenAsync();
+
+
+            //TEST auf topic SmartLogistics/Roboter/1234 subscriben für MQTT
+            Client.Handle_Received_Application_Message(mqttRepository);
 
             return Ok(mapper.Map<List<KundeDto>>(kunden));
         }

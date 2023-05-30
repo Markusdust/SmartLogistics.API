@@ -9,6 +9,7 @@ using SmartLogistics.API.DomainModels.AddDomainModels;
 using SmartLogistics.API.Profiles.AfterMaps.ProduktAfterMaps;
 using SmartLogistics.API.Profiles.AfterMaps.RoboterAfterMaps;
 using SmartLogistics.API.Profiles.AfterMaps.LagerverwaltungAfterMaps;
+using SmartLogistics.API.Profiles.AfterMaps.BestellungAfterMaps;
 
 namespace SmartLogistics.API.Profiles
 {
@@ -73,6 +74,11 @@ namespace SmartLogistics.API.Profiles
             CreateMap<AddLagerverwaltungRequest, DataModels.Lagerverwaltung>()
                 .AfterMap<AddLagerverwaltungRequestAfterMap>();
 
+            CreateMap<UpdateBestellungRequest, Bestellung>()
+                .AfterMap<UpdateBestellungRequestAfterMap>();
+
+            CreateMap<AddBestellungRequest, DataModels.Bestellung>()
+                .AfterMap<AddBestellungRequestAfterMap>();
         }
     }
 }
