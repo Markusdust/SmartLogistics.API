@@ -53,7 +53,7 @@ var app = builder.Build();
 
 
 var repo = app.Services.GetService<IMqttRepository>();
-Client.Connect_Client();
+await Client.Connect_Client();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -64,7 +64,7 @@ namespace SmartLogistics.API.MqttConnection
             }
         }
 
-        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository, Guid roboterId)
+        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository/*, Guid roboterId*/)
         {
             /*
              * This sample subscribes to a topic and processes the received message.
@@ -98,7 +98,7 @@ namespace SmartLogistics.API.MqttConnection
                     .WithTopicFilter(
                         f =>
                         {
-                            f.WithTopic(roboterId + "/Roboterstatus/Batteriestatus");
+                            f.WithTopic("SmartLogistics/Roboter/1234");
                         })
                     .Build();
 
@@ -153,8 +153,6 @@ namespace SmartLogistics.API.MqttConnection
              * or at least provides backward compatibility where possible.
              */
 
-           
-
             var mqttFactory = new MqttFactory();
 
             using (var mqttClient = mqttFactory.CreateMqttClient())
@@ -166,7 +164,7 @@ namespace SmartLogistics.API.MqttConnection
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
                 var applicationMessage = new MqttApplicationMessageBuilder()
-                    .WithTopic("SmartLogistics/Auftraege")
+                    .WithTopic("SmartLogistics/Lieferauftraege")
                     .WithPayload(bestellung)
                     .Build();
 
