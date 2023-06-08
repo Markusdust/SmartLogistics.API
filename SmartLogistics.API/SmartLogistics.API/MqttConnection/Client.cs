@@ -22,7 +22,10 @@ namespace SmartLogistics.API.MqttConnection
 
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
-                var mqttClientOptions = new MqttClientOptionsBuilder().WithTcpServer("192.168.3.20").Build();
+                var mqttClientOptions = new MqttClientOptionsBuilder()
+                    .WithTcpServer("192.168.3.20")
+                    .WithCredentials("mqtt", "Network4zbw")
+                    .Build();
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
                 // This will send the DISCONNECT packet. Calling _Dispose_ without DisconnectAsync the 
@@ -45,7 +48,10 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 // Use builder classes where possible in this project.
-                var mqttClientOptions = new MqttClientOptionsBuilder().WithTcpServer("localhost").Build();
+                var mqttClientOptions = new MqttClientOptionsBuilder()
+                    .WithTcpServer("192.168.3.20")
+                    .WithCredentials("mqtt", "Network4zbw")
+                    .Build();
 
                 // This will throw an exception if the server is not available.
                 // The result from this message returns additional data which was sent 
@@ -165,6 +171,7 @@ namespace SmartLogistics.API.MqttConnection
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                     .WithTcpServer("192.168.3.20")
+                    .WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
