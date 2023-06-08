@@ -18,9 +18,9 @@ namespace SmartLogistics.API.Email
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient("smtp.mail.yahoo.com", 587); // Yahoo SMTP
+            SmtpClient client = new SmtpClient("smtp.mailtrap.io", 2525); // Mailtrap SMTP
 
-            System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("smartLogisticsZBWSenden@yahoo.com", "smartLogisticsZBWSenden");
+            System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("smart logistics", "SmartLogisticsDelivery");
 
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
