@@ -8,19 +8,19 @@ namespace SmartLogistics.API.Email
         public async Task SendEmailToClientAsync()
         {
             string to = "markusstaub1@gmail.com"; // To address
-            string from = "smartLogisticsZBWSenden@yahoo.com"; // From address
+            string from = "Smartlogisticsch@gmail.com"; // From address
 
             MailMessage message = new MailMessage(from, to);
 
-            string mailbody = "In this article you will learn how to send an email using Asp.Net & C#";
-            message.Subject = "Sending Email Using Asp.Net & C#";
+            string mailbody = "Test email: Ihr Paket wird in kürze ankommen";
+            message.Subject = "ZBW Schule AüP Projekt";
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient("smtp.mailtrap.io", 2525); // Mailtrap SMTP
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); // Mailtrap SMTP
 
-            System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("smart logistics", "SmartLogisticsDelivery");
+            System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("Smartlogisticsch@gmail.com", "tbirwdmyrxfutvls");
 
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
@@ -29,6 +29,7 @@ namespace SmartLogistics.API.Email
             try
             {
                 await client.SendMailAsync(message);
+                await Console.Out.WriteLineAsync("Email was send to " + to+".");
             }
             catch (Exception ex)
             {

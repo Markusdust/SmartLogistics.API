@@ -36,8 +36,8 @@ namespace SmartLogistics.API.Controllers
             }
 
 
-            //var emailService = new sendEmail();
-            //await emailService.SendEmailToClientAsync();
+            var emailService = new sendEmail();
+            await emailService.SendEmailToClientAsync();
 
 
             return Ok(mapper.Map<List<BestellungDto>>(bestellungsList));
