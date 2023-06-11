@@ -26,7 +26,7 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]")]
         public async Task<IActionResult> GetBatterieStatusAsync()
         {
-            var batterieStatus = mqttRepository.BatteryLevel;
+            var batterieStatus = mqttRepository.Batteriestatus;
 
 
             return Ok("Batteriestatus: "+batterieStatus+"%");

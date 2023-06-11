@@ -18,7 +18,7 @@ namespace SmartLogistics.API.Email
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); // Mailtrap SMTP
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); // Gmail SMTP
 
             System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("Smartlogisticsch@gmail.com", "tbirwdmyrxfutvls");
 

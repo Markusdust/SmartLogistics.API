@@ -2,7 +2,9 @@
 {
     public class MqttRepository : IMqttRepository
     {
-        public string BatteryLevel { get; set; }
-        public string Bestellungsablauf { get; set; }
+        public string Batteriestatus { get; set; }
+        public string Auftragsstatus { get; set; }
+        public string Positionsstatus { get; set; }
+        public bool Angemeldet { get; set; }
     }
 }
