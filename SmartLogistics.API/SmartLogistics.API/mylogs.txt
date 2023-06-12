@@ -26,3 +26,13 @@ fail: 29/05/2023 22:54:03.901 CoreEventId.QueryIterationFailed[10100] (Microsoft
          at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
       ClientConnectionId:00000000-0000-0000-0000-000000000000
       Error Number:11001,State:0,Class:20
+info: 12.06.2023 20:19:24.569 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (77ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [k].[Id], [k].[Email], [k].[Geburtsdatum], [k].[GeschlechtId], [k].[Nachname], [k].[Telefon], [k].[Vorname], [g].[Id], [g].[Beschreibung], [a].[Id], [a].[Hausnummer], [a].[KundeId], [a].[OrtId], [a].[Strasse]
+      FROM [Kunden] AS [k]
+      INNER JOIN [Geschlechter] AS [g] ON [k].[GeschlechtId] = [g].[Id]
+      LEFT JOIN [Adressen] AS [a] ON [k].[Id] = [a].[KundeId]
+info: 12.06.2023 20:20:23.044 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [g].[Id], [g].[Beschreibung]
+      FROM [Geschlechter] AS [g]

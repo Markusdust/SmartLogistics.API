@@ -23,8 +23,9 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("192.168.3.20", 1883)
-                    .WithCredentials("mqtt", "Network4zbw")
+                   .WithTcpServer("localhost")
+                    //.WithTcpServer("192.168.3.20", 1883)
+                    //.WithCredentials("mqtt", "Network4zbw")
                     .Build();
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
@@ -49,8 +50,9 @@ namespace SmartLogistics.API.MqttConnection
             {
                 // Use builder classes where possible in this project.
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("192.168.3.20",1883)
-                    .WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("localhost")
+                    //.WithTcpServer("192.168.3.20", 1883)
+                    //.WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 // This will throw an exception if the server is not available.
@@ -81,8 +83,9 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("192.168.3.20",1883)
-                    .WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("localhost")
+                    //.WithTcpServer("192.168.3.20", 1883)
+                    //.WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 // Setup message handling before connecting so that queued messages
@@ -95,8 +98,11 @@ namespace SmartLogistics.API.MqttConnection
                     //  Console.WriteLine($"Received message: Topic={e.ApplicationMessage.Topic}, Payload={Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
-                    mqttRepository.BatteryLevel = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-
+                    mqttRepository.Batteriestatus = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                    mqttRepository.Auftragsstatus = "E";
+                    mqttRepository.Positionsstatus = "RS";
+                    mqttRepository.Angemeldet = true;
+                    
 
                     return Task.CompletedTask;
                 };
@@ -115,8 +121,8 @@ namespace SmartLogistics.API.MqttConnection
 
                 Console.WriteLine("MQTT client subscribed to topic.");
 
-                Console.WriteLine("Press enter to exit.");
-                Console.ReadLine();
+                //Console.WriteLine("Press enter to exit.");
+                //Console.ReadLine();
             }
         }
 
@@ -131,8 +137,9 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("192.168.3.20", 1883)
-                    .WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("localhost")
+                    //.WithTcpServer("192.168.3.20", 1883)
+                    //.WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
@@ -170,8 +177,9 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("192.168.3.20", 1883)
-                    .WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("localhost")
+                    //.WithTcpServer("192.168.3.20", 1883)
+                    //.WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);

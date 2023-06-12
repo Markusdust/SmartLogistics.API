@@ -30,8 +30,8 @@ namespace SmartLogistics.API.Controllers
             var kunden = await kundenRepository.GetKundenAsync();
 
 
-            //TEST auf topic SmartLogistics/Roboter/1234 subscriben für MQTT
-            Client.Handle_Received_Application_Message(mqttRepository);
+            ////TEST auf topic SmartLogistics/Roboter/1234 subscriben für MQTT
+            //Client.Handle_Received_Application_Message(mqttRepository);
 
             return Ok(mapper.Map<List<KundeDto>>(kunden));
         }

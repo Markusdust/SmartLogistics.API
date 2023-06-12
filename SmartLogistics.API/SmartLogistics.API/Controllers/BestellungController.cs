@@ -64,7 +64,7 @@ namespace SmartLogistics.API.Controllers
             ///
 
 
-            //var emailsender = new sendEmail();
+            var emailsender = new sendEmail();
 
             var bestellungsList = await bestellungRepository.GetBestellungenAsync();
 
@@ -85,7 +85,7 @@ namespace SmartLogistics.API.Controllers
             //    await emailsender.SendEmailToClientAsync();
             //}
 
-            //var showme = stringbestellung;
+            var showme = stringbestellung;
             await Client.Publish_Application_Message(mqttRepository, stringbestellung);
 
             return Ok();

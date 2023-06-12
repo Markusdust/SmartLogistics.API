@@ -33,8 +33,8 @@ namespace SmartLogistics.API.Email
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
+                await Console.Out.WriteLineAsync("Email konnte and" + to +" nicht versendet werden." + "r\n" + ex);
+            } 
         }
 
 
