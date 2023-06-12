@@ -40,7 +40,7 @@ builder.Services.AddScoped<IRoboterRepository, SqlRoboterRepository>();
 builder.Services.AddScoped<ILagerverwaltungRepository, SqlLagerverwaltungRepository>();
 builder.Services.AddScoped<IBestellungRepository, SqlBestellungRepository>();
 
-builder.Services.AddScoped<IMqttRepository, MqttRepository>();
+builder.Services.AddSingleton<IMqttRepository, MqttRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

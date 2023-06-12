@@ -3,6 +3,7 @@ using MQTTnet;
 using SmartLogistics.API.MqttConnection.Helpers;
 using System.Text;
 using SmartLogistics.API.Repositories;
+using Azure;
 
 namespace SmartLogistics.API.MqttConnection
 {
@@ -23,10 +24,10 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                   .WithTcpServer("localhost")
-                    //.WithTcpServer("192.168.3.20", 1883)
-                    //.WithCredentials("mqtt", "Network4zbw")
+                   .WithTcpServer("192.168.3.20", 1883)
+                    .WithCredentials("mqtt", "Network4zbw")
                     .Build();
+
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
                 // This will send the DISCONNECT packet. Calling _Dispose_ without DisconnectAsync the 
@@ -50,9 +51,8 @@ namespace SmartLogistics.API.MqttConnection
             {
                 // Use builder classes where possible in this project.
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
-                    //.WithTcpServer("192.168.3.20", 1883)
-                    //.WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("192.168.3.20", 1883)
+                    .WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 // This will throw an exception if the server is not available.
@@ -72,54 +72,49 @@ namespace SmartLogistics.API.MqttConnection
             }
         }
 
-        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository/*, Guid roboterId*/)
+        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository)
         {
-            /*
-             * This sample subscribes to a topic and processes the received message.
-             */
-
             var mqttFactory = new MqttFactory();
 
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost").Build();
+                    .WithTcpServer("192.168.3.20", 1883)
+                    .WithCredentials("mqtt", "Network4zbw")
+                    .Build();
 
-                // Setup message handling before connecting so that queued messages
-                // are also handled properly. When there is no event handler attached all
-                // received messages get lost.
-                mqttClient.ApplicationMessageReceivedAsync += e =>
+                mqttClient.ApplicationMessageReceivedAsync += async e =>
                 {
                     Console.WriteLine("Received application message.");
-                    //  e.DumpToConsole();
-                    //  Console.WriteLine($"Received message: Topic={e.ApplicationMessage.Topic}, Payload={Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
                     mqttRepository.Batteriestatus = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
                     mqttRepository.Auftragsstatus = "E";
                     mqttRepository.Positionsstatus = "RS";
                     mqttRepository.Angemeldet = true;
-                    
 
-                    return Task.CompletedTask;
+                    await Task.Yield(); // Erlaubt anderen Tasks, fortzufahren
                 };
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
-                var mqttSubscribeOptions = mqttFactory.CreateSubscribeOptionsBuilder()
-                    .WithTopicFilter(
-                        f =>
-                        {
-                            f.WithTopic("SmartLogistics");
-                        })
+                var mqttSubscribeOptions = new MqttClientSubscribeOptionsBuilder()
+                    .WithTopicFilter("SmartLogistics/Roboter/1234")
                     .Build();
 
-                await mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None);
+                await mqttClient.SubscribeAsync(mqttSubscribeOptions);
 
                 Console.WriteLine("MQTT client subscribed to topic.");
 
-                //Console.WriteLine("Press enter to exit.");
-                //Console.ReadLine();
+                // Warten auf ein Beendigungssignal
+                var quitEvent = new ManualResetEventSlim(false);
+                Console.CancelKeyPress += (sender, eventArgs) =>
+                {
+                    eventArgs.Cancel = true;
+                    quitEvent.Set();
+                };
+
+                quitEvent.Wait();
             }
         }
 
@@ -134,9 +129,8 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
-                    //.WithTcpServer("192.168.3.20", 1883)
-                    //.WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("192.168.3.20", 1883)
+                    .WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
@@ -174,9 +168,8 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
-                    //.WithTcpServer("192.168.3.20", 1883)
-                    //.WithCredentials("mqtt", "Network4zbw")
+                    .WithTcpServer("192.168.3.20", 1883)
+                    .WithCredentials("mqtt", "Network4zbw")
                     .Build();
 
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
