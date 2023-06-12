@@ -40,7 +40,7 @@ builder.Services.AddScoped<IRoboterRepository, SqlRoboterRepository>();
 builder.Services.AddScoped<ILagerverwaltungRepository, SqlLagerverwaltungRepository>();
 builder.Services.AddScoped<IBestellungRepository, SqlBestellungRepository>();
 
-builder.Services.AddSingleton<IMqttRepository, MqttRepository>();
+builder.Services.AddScoped<IMqttRepository, MqttRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -52,9 +52,9 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-var repo = app.Services.GetService<IMqttRepository>();
+//var repo = app.Services.GetService<IMqttRepository>();
 //await Client.Connect_Client();
-await Client.Handle_Received_Application_Message(repo);
+//await Client.Handle_Received_Application_Message(repo);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

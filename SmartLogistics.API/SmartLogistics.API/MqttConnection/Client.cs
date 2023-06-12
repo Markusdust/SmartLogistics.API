@@ -83,10 +83,7 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
-                    //.WithTcpServer("192.168.3.20", 1883)
-                    //.WithCredentials("mqtt", "Network4zbw")
-                    .Build();
+                    .WithTcpServer("localhost").Build();
 
                 // Setup message handling before connecting so that queued messages
                 // are also handled properly. When there is no event handler attached all
@@ -113,7 +110,7 @@ namespace SmartLogistics.API.MqttConnection
                     .WithTopicFilter(
                         f =>
                         {
-                            f.WithTopic("SmartLogistics/Roboter/1234");
+                            f.WithTopic("SmartLogistics");
                         })
                     .Build();
 
