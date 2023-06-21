@@ -33,7 +33,7 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                   .WithTcpServer("localhost")
+                .WithTcpServer("localhost")
                 //.WithTcpServer("192.168.3.20", 1883)
                 //.WithCredentials("mqtt", "Network4zbw")
                 .Build();
@@ -61,7 +61,7 @@ namespace SmartLogistics.API.MqttConnection
             {
                 // Use builder classes where possible in this project.
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
+                  .WithTcpServer("localhost")
                 //.WithTcpServer("192.168.3.20", 1883)
                 //.WithCredentials("mqtt", "Network4zbw")
                 .Build();
@@ -212,7 +212,7 @@ namespace SmartLogistics.API.MqttConnection
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 var mqttClientOptions = new MqttClientOptionsBuilder()
-                    .WithTcpServer("localhost")
+                .WithTcpServer("localhost")
                 //.WithTcpServer("192.168.3.20", 1883)
                 //.WithCredentials("mqtt", "Network4zbw")
                 .Build();
