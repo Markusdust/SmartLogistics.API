@@ -9,6 +9,7 @@ namespace SmartLogistics.API.Controllers
     public class MqttController : Controller
     {
         private readonly IMqttRepository mqttRepository;
+
         private readonly IMapper mapper;
 
         public MqttController(IMqttRepository mqttRepository, IMapper mapper)
@@ -21,10 +22,18 @@ namespace SmartLogistics.API.Controllers
         [Route("[controller]/abonnierenAufTopicTEST")]
         public async Task<IActionResult> AbonnierAufTopic()
         {
+
+
             try
             {
+
+                var mqttClient = new Client(mqttRepository);
+
+                //var myTask = new Task(async () => { await mqttClient.Handle_Received_Application_Message(); });
+                //myTask.Start();
+                await mqttClient.Handle_Received_Application_Message();
                 //TEST auf topic SmartLogistics/Roboter/1234 subscriben für MQTT
-                Client.Handle_Received_Application_Message(mqttRepository);
+                //Client.Handle_Received_Application_Message(mqttRepository);
                 return Ok();
             }
             catch (Exception ex)

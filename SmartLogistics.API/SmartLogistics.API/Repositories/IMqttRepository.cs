@@ -1,4 +1,6 @@
-﻿namespace SmartLogistics.API.Repositories
+﻿using SmartLogistics.API.DataModels;
+
+namespace SmartLogistics.API.Repositories
 {
     public interface IMqttRepository
     {
@@ -8,6 +10,9 @@
         public string Auftragsstatus { get; set; }
         public string Positionsstatus { get; set; }
         public string Angemeldet { get; set; }
+
+        Task<Bestellung> GetBestellungAsync(Guid bestellungId);
+        Task<Bestellung> ChangeLieferstatusTest(Guid bestellungId, string auftragsStatus);
 
     }
 }

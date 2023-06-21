@@ -14,5 +14,8 @@ namespace SmartLogistics.API.Repositories
 
         Task<Bestellung> DeleteBestellung(Guid bestellungId);
         Task<Bestellung> AddBestellung(Bestellung request);
+
+        public void CheckBestellungChangeStatus(Guid bestllungid, string lieferstatus);
+
     }
 }

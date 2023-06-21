@@ -39,7 +39,6 @@ namespace SmartLogistics.API.Repositories
                 existingBestellung.LieferungEnde = request.LieferungEnde;
                 existingBestellung.KundeId = request.KundeId;
                 existingBestellung.Prioritaet = request.Prioritaet;
-                existingBestellung.Lieferart = request.Lieferart;
                 existingBestellung.Status  = request.Status;
 
 
@@ -67,6 +66,24 @@ namespace SmartLogistics.API.Repositories
             var newBestellung = await context.Bestellungen.AddAsync(request);
             await context.SaveChangesAsync();
             return newBestellung.Entity;
+        }
+
+        public async void CheckBestellungChangeStatus(Guid bestellungId, string lieferstatus)
+        {
+            //Prüft status von auszuliefende Bestellung
+            //falls status neu geädnert (packet geliefert) soll status auch in DB geschrieben werde.
+
+
+
+            List<Bestellung> test = await GetBestellungenAsync();
+
+            //if (bestellung.Status != lieferstatus)
+            //{
+            //    bestellung.Status = lieferstatus;
+            //}
+
+            //await context.SaveChangesAsync();
+            
         }
     }
 }

@@ -132,5 +132,45 @@ namespace SmartLogistics.API.Controllers
                 mapper.Map<BestellungDto>(bestellung));
         }
 
+        [HttpPut]
+        [Route("[controller]/UpdateLieferstatus")]
+        public async Task<IActionResult> UpdateLieferstatusAsync()
+        {
+            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+
+        
+
+            if (await bestellungRepository.Exists(bestellungId))
+            {
+
+                
+
+                var bestellung = await bestellungRepository.GetBestellungAsync(bestellungId);
+
+                var request = new UpdateBestellungRequest
+                {
+                    ProduktId = bestellung.ProduktId,
+                    Erfassdatum = bestellung.Erfassdatum,
+                    LieferungStart = bestellung.LieferungStart,
+                    LieferungEnde = bestellung.LieferungEnde,
+                    KundeId = bestellung.KundeId,
+                    Prioritaet = bestellung.Prioritaet,
+                    Lieferart = bestellung.Lieferart,
+                    Status = mqttRepository.Auftragsstatus
+                };
+
+                //update Details
+                 var updateBestellung = await bestellungRepository.UpdateBestellung(bestellungId, mapper.Map<Bestellung>(request));
+
+                if (updateBestellung != null)
+                {
+                    return Ok(mapper.Map<BestellungDto>(updateBestellung));
+                }
+
+            }
+            return NotFound();
+
+        }
+
     }
 }

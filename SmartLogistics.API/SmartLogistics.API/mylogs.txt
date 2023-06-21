@@ -36,3 +36,9 @@ info: 12.06.2023 20:20:23.044 RelationalEventId.CommandExecuted[20101] (Microsof
       Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
       SELECT [g].[Id], [g].[Beschreibung]
       FROM [Geschlechter] AS [g]
+info: 16.06.2023 02:00:52.523 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (126ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [b].[Id], [b].[Erfassdatum], [b].[KundeId], [b].[Lieferart], [b].[LieferungEnde], [b].[LieferungStart], [b].[Prioritaet], [b].[ProduktId], [b].[Status], [k].[Id], [k].[Email], [k].[Geburtsdatum], [k].[GeschlechtId], [k].[Nachname], [k].[Telefon], [k].[Vorname], [p].[Id], [p].[Name]
+      FROM [Bestellungen] AS [b]
+      INNER JOIN [Kunden] AS [k] ON [b].[KundeId] = [k].[Id]
+      INNER JOIN [Produkte] AS [p] ON [b].[ProduktId] = [p].[Id]

@@ -5,12 +5,20 @@ using System.Text;
 using SmartLogistics.API.Repositories;
 using Azure;
 using Microsoft.IdentityModel.Tokens;
+using SmartLogistics.API.Controllers;
+using SmartLogistics.API.DataModels;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace SmartLogistics.API.MqttConnection
 {
     public class Client
     {
-
+        private readonly IMqttRepository mqttRepository;
+        public Client(IMqttRepository mqttRepository)
+        {
+            this.mqttRepository= mqttRepository;
+        }
         public static async Task Clean_Disconnect()
         {
             /*
@@ -75,8 +83,9 @@ namespace SmartLogistics.API.MqttConnection
             }
         }
 
-        public static async Task Handle_Received_Application_Message(IMqttRepository mqttRepository)
+        public async Task Handle_Received_Application_Message()
         {
+            var mqttRepository = this.mqttRepository;
             var mqttFactory = new MqttFactory();
 
             using (var mqttClient = mqttFactory.CreateMqttClient())
@@ -92,7 +101,7 @@ namespace SmartLogistics.API.MqttConnection
                     Console.WriteLine("Received application message.");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
-                    ValueRoboterToRepo(mqttRepository, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    await ValueRoboterToRepoAsync(mqttRepository,  Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
                     await Task.Yield(); // Erlaubt anderen Tasks, fortzufahren
                 };
@@ -119,9 +128,9 @@ namespace SmartLogistics.API.MqttConnection
             }
         }
 
-        private static void ValueRoboterToRepo(IMqttRepository mqttRepository, string input)
+        private static async Task ValueRoboterToRepoAsync(IMqttRepository mqttRepository, string input)
         {
-            //input = "1234/34/01/B/R1/1";
+           //input = "1234/34/01/B/R1/1";
             string[] values = input.Split('/');
 
             string value1 = values[0];
@@ -137,6 +146,19 @@ namespace SmartLogistics.API.MqttConnection
             mqttRepository.Auftragsstatus = wert4;
             mqttRepository.Positionsstatus = wert5;
             mqttRepository.Angemeldet = wert6;
+
+            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+
+            await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
+            ///
+
+
+        }
+
+        public void SomeMethod()
+        {
+            // Verwenden der Client-Klasse
+            
         }
 
         public static async Task Subscribe_Topic()
