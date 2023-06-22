@@ -68,10 +68,15 @@ namespace SmartLogistics.API.Controllers
 
             var bestellungsList = await bestellungRepository.GetBestellungenAsync();
 
+            string[] stringArray= new string[4];
+
             string stringbestellung = "";
+                                  
 
             foreach (var item in bestellungsList)
             {
+                var tempstring = "";
+
                 string kundeId = "";
                 string produktId = "";
                 string prioritaet = "";
@@ -82,12 +87,21 @@ namespace SmartLogistics.API.Controllers
                 prioritaet = createPriorityForDelivery(item, prioritaet);
                 deliveryTyp = createDeliveryTypeForDelivery(item, deliveryTyp);
 
-                stringbestellung += item.Id + "/";
-                stringbestellung += kundeId + "/";  //item.KundeId + "/";
-                stringbestellung += produktId + "/";//item.ProduktId + "/";
-                stringbestellung += prioritaet + "/";//item.Prioritaet + "/";
-                stringbestellung += deliveryTyp + "/";//item.Lieferart;
-                stringbestellung += ";";
+                tempstring += item.Id + "/";
+                tempstring += kundeId + "/";  //item.KundeId + "/";
+                tempstring += produktId + "/";//item.ProduktId + "/";
+                tempstring += prioritaet + "/";//item.Prioritaet + "/";
+                tempstring += deliveryTyp + "/";//item.Lieferart;
+                tempstring += ";";
+                OrderDeliverystoPrioritiy(stringArray, tempstring, prioritaet);
+            }
+
+            foreach (var item in stringArray)
+            {
+                if (item != null)
+                {
+                    stringbestellung += item;
+                }
             }
 
             //foreach (var item in bestellungsList)
@@ -101,6 +115,26 @@ namespace SmartLogistics.API.Controllers
             await Client.Publish_Application_Message(mqttRepository, stringbestellung);
 
             return Ok();
+        }
+
+        private static void OrderDeliverystoPrioritiy(string[] stringArray, string tempstring, string prioritaet)
+        {
+            if (prioritaet == "1")
+            {
+                stringArray[0] = tempstring;
+            }
+            if (prioritaet == "2")
+            {
+                stringArray[1] = tempstring;
+            }
+            if (prioritaet == "3")
+            {
+                stringArray[2] = tempstring;
+            }
+            if (prioritaet == "4")
+            {
+                stringArray[3] = tempstring;
+            }
         }
 
         private static string createDeliveryTypeForDelivery(Bestellung item, string deliveryTyp)
