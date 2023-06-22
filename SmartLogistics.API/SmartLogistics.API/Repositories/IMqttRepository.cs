@@ -10,6 +10,7 @@ namespace SmartLogistics.API.Repositories
         public string Auftragsstatus { get; set; }
         public string Positionsstatus { get; set; }
         public string Angemeldet { get; set; }
+        public string Komplettstring { get; set; }
 
         Task<Bestellung> GetBestellungAsync(Guid bestellungId);
         Task<Bestellung> ChangeLieferstatusTest(Guid bestellungId, string auftragsStatus);

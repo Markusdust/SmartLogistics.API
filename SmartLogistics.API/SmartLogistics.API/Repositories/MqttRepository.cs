@@ -19,6 +19,7 @@ namespace SmartLogistics.API.Repositories
         public string Auftragsstatus { get; set; }
         public string Positionsstatus { get; set; }
         public string Angemeldet { get; set; }
+        public string Komplettstring { get; set; }
 
         //public async Task<List<Bestellung>> GetBestellungenAsync()
         //{

@@ -1,14 +1,8 @@
-﻿using MQTTnet.Client;
-using MQTTnet;
+﻿using MQTTnet;
+using MQTTnet.Client;
 using SmartLogistics.API.MqttConnection.Helpers;
-using System.Text;
 using SmartLogistics.API.Repositories;
-using Azure;
-using Microsoft.IdentityModel.Tokens;
-using SmartLogistics.API.Controllers;
-using SmartLogistics.API.DataModels;
-using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace SmartLogistics.API.MqttConnection
 {
@@ -17,7 +11,7 @@ namespace SmartLogistics.API.MqttConnection
         private readonly IMqttRepository mqttRepository;
         public Client(IMqttRepository mqttRepository)
         {
-            this.mqttRepository= mqttRepository;
+            this.mqttRepository = mqttRepository;
         }
         public static async Task Clean_Disconnect()
         {
@@ -101,7 +95,7 @@ namespace SmartLogistics.API.MqttConnection
                     Console.WriteLine("Received application message.");
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
-                    await ValueRoboterToRepoAsync(mqttRepository,  Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    await ValueRoboterToRepoAsync(mqttRepository, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
                     await Task.Yield(); // Erlaubt anderen Tasks, fortzufahren
                 };
@@ -130,35 +124,36 @@ namespace SmartLogistics.API.MqttConnection
 
         private static async Task ValueRoboterToRepoAsync(IMqttRepository mqttRepository, string input)
         {
-           //input = "1234/34/01/B/R1/1";
-            string[] values = input.Split('/');
+                //nach semicolons splitten weill man dan einen ganzen bestellroboter string hat.
+                //string[]grossValues = input.Split(';');
 
-            string value1 = values[0];
-            string wert2 = values[1];
-            string wert3 = values[2];
-            string wert4 = values[3];
-            string wert5 = values[4];
-            string wert6 = values[5];
+                //einzelne bestellstrings dann nach / splitten um einzelne daten zu erhalten.
 
-            mqttRepository.RoboterId= value1;
-            mqttRepository.Batteriestatus = wert2;
-            mqttRepository.AuftragsId = wert3;
-            mqttRepository.Auftragsstatus = wert4;
-            mqttRepository.Positionsstatus = wert5;
-            mqttRepository.Angemeldet = wert6;
+                    string[] values = input.Split('/');
 
-            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+                    string value1 = values[0];
+                    string wert2 = values[1];
+                    string wert3 = values[2];
+                    string wert4 = values[3];
+                    string wert5 = values[4];
+                    string wert6 = values[5];
 
-            await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
-            ///
+                    mqttRepository.RoboterId = value1;
+                    mqttRepository.Batteriestatus = wert2;
+                    mqttRepository.AuftragsId = wert3;
+                    mqttRepository.Auftragsstatus = wert4;
+                    mqttRepository.Positionsstatus = wert5;
+                    mqttRepository.Angemeldet = wert6;
 
+                    Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
 
+                    await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
         }
 
         public void SomeMethod()
         {
             // Verwenden der Client-Klasse
-            
+
         }
 
         public static async Task Subscribe_Topic()
