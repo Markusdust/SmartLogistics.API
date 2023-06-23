@@ -68,7 +68,10 @@ namespace SmartLogistics.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Batterie = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PositionsStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuftragsId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

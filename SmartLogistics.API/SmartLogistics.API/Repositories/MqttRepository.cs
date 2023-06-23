@@ -58,5 +58,29 @@ namespace SmartLogistics.API.Repositories
 
             return null;
         }
+
+        public async Task<Roboter> GetRoboterAsync(Guid roboterId)
+        {
+            return await context.Roboter.FirstOrDefaultAsync(x => x.Id == roboterId);
+        }
+
+        public async Task<Roboter> UpdateRoboterStatus(Guid roboterId, Roboter request)
+        {
+
+
+            var existingRoboter = await GetRoboterAsync(roboterId);
+            if (existingRoboter != null)
+            {
+                //existingRoboter.Name = request.Name;
+                existingRoboter.Batterie = request.Batterie;
+                existingRoboter.PositionsStatus = request.PositionsStatus;
+                existingRoboter.AuftragsId = request.AuftragsId;
+
+                await context.SaveChangesAsync();
+                return existingRoboter;
+            }
+
+            return null;
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace SmartLogistics.API.Repositories
 
         Task<Bestellung> GetBestellungAsync(Guid bestellungId);
         Task<Bestellung> ChangeLieferstatusTest(Guid bestellungId, string auftragsStatus);
+        Task<Roboter> GetRoboterAsync(Guid roboterId);
+        Task<Roboter> UpdateRoboterStatus(Guid roboterId, Roboter request);
 
     }
 }

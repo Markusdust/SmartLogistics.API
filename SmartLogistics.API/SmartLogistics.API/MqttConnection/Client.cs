@@ -1,5 +1,6 @@
 ﻿using MQTTnet;
 using MQTTnet.Client;
+using SmartLogistics.API.DataModels;
 using SmartLogistics.API.MqttConnection.Helpers;
 using SmartLogistics.API.Repositories;
 using System.Text;
@@ -103,7 +104,7 @@ namespace SmartLogistics.API.MqttConnection
                 await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
                 var mqttSubscribeOptions = new MqttClientSubscribeOptionsBuilder()
-                    .WithTopicFilter("SmartLogistics/Roboter/1234")
+                    .WithTopicFilter("SmartLogistics/Roboter/1")
                     .Build();
 
                 await mqttClient.SubscribeAsync(mqttSubscribeOptions);
@@ -124,30 +125,57 @@ namespace SmartLogistics.API.MqttConnection
 
         private static async Task ValueRoboterToRepoAsync(IMqttRepository mqttRepository, string input)
         {
-                //nach semicolons splitten weill man dan einen ganzen bestellroboter string hat.
-                //string[]grossValues = input.Split(';');
+            //nach semicolons splitten weill man dan einen ganzen bestellroboter string hat.
+            //string[]grossValues = input.Split(';');
 
-                //einzelne bestellstrings dann nach / splitten um einzelne daten zu erhalten.
+            //einzelne bestellstrings dann nach / splitten um einzelne daten zu erhalten.
 
-                    string[] values = input.Split('/');
+            string[] values = input.Split('/');
 
-                    string value1 = values[0];
-                    string wert2 = values[1];
-                    string wert3 = values[2];
-                    string wert4 = values[3];
-                    string wert5 = values[4];
-                    string wert6 = values[5];
+            string value1 = values[0];
+            string wert2 = values[1];
+            string wert3 = values[2];
+            string wert4 = values[3];
+            string wert5 = values[4];
+            string wert6 = values[5];
 
-                    mqttRepository.RoboterId = value1;
-                    mqttRepository.Batteriestatus = wert2;
-                    mqttRepository.AuftragsId = wert3;
-                    mqttRepository.Auftragsstatus = wert4;
-                    mqttRepository.Positionsstatus = wert5;
-                    mqttRepository.Angemeldet = wert6;
+            mqttRepository.RoboterId = value1;
+            mqttRepository.Batteriestatus = wert2;
+            mqttRepository.AuftragsId = wert3;
+            mqttRepository.Auftragsstatus = wert4;
+            mqttRepository.Positionsstatus = wert5;
+            mqttRepository.Angemeldet = wert6;
 
-                    Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
 
-                    await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
+            await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
+
+            // batteriestatus etc in robo tabelle schreiben.
+
+            if (mqttRepository.RoboterId != null)
+            {
+                string roboterIdString="";
+                if (mqttRepository.RoboterId == "01")
+                {
+                    roboterIdString = "694f0983-425c-4f0c-a500-10948ece2e1c";
+                }
+                else
+                {
+                    roboterIdString = "694f0983-425c-4f0c-a500-10948ece2e1c";
+                }
+
+                Guid roboterId = Guid.Parse(roboterIdString);
+                var requstRoboter = new Roboter
+                {
+                    Name = "",
+                    Batterie = mqttRepository.Batteriestatus,
+                    PositionsStatus = mqttRepository.Positionsstatus,
+                    AuftragsId = mqttRepository.AuftragsId
+                };
+
+                await mqttRepository.UpdateRoboterStatus(roboterId, requstRoboter);
+            }
+
         }
 
         public void SomeMethod()
@@ -178,7 +206,7 @@ namespace SmartLogistics.API.MqttConnection
                     .WithTopicFilter(
                         f =>
                         {
-                            f.WithTopic("SmartLogistics/Roboter/1234");
+                            f.WithTopic("SmartLogistics/Roboter/1");
                         })
                     .Build();
 

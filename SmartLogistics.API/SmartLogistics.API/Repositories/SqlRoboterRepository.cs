@@ -33,6 +33,8 @@ namespace SmartLogistics.API.Repositories
             if (existingRoboter != null)
             {
                 existingRoboter.Name = request.Name;
+                existingRoboter.Batterie = request.Batterie;
+                existingRoboter.PositionsStatus = request.PositionsStatus;
 
                 await context.SaveChangesAsync();
                 return existingRoboter;
