@@ -132,23 +132,39 @@ namespace SmartLogistics.API.MqttConnection
 
             string[] values = input.Split('/');
 
-            string value1 = values[0];
+            string wert1 = values[0];
             string wert2 = values[1];
             string wert3 = values[2];
             string wert4 = values[3];
             string wert5 = values[4];
             string wert6 = values[5];
 
-            mqttRepository.RoboterId = value1;
+            mqttRepository.RoboterId = wert1;
             mqttRepository.Batteriestatus = wert2;
             mqttRepository.AuftragsId = wert3;
             mqttRepository.Auftragsstatus = wert4;
             mqttRepository.Positionsstatus = wert5;
             mqttRepository.Angemeldet = wert6;
 
-            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+            await Console.Out.WriteLineAsync("Status von Roboter erfalten" + input+"\r\n"
+                                             + "roboterId: " +wert1 + "\r\n"
+                                             + "batteriestatus: " + wert2 + "\r\n"
+                                             + "AuftragsId: "+ wert3 + "\r\n"
+                                             + "Auftragsstatus: " +wert4 + "\r\n"
+                                             + "Positionsstatus: "+ wert5 + "\r\n"
+                                             + "angemeldet: " + wert6);
 
-            await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
+            Guid bestellungId = Guid.Parse(mqttRepository.AuftragsId);
+            try
+            {
+                await mqttRepository.ChangeLieferstatusTest(bestellungId, mqttRepository.Auftragsstatus);
+                await Console.Out.WriteLineAsync("Status in Bestellung " + bestellungId +" wurde geändert");
+            }
+            catch(Exception ex)
+            {
+                await Console.Out.WriteLineAsync("Bestellstatus für"+ bestellungId+" konnte nicht angepasst werden" +"\r\n"+ex.Message);
+            }
+            
 
             // batteriestatus etc in robo tabelle schreiben.
 
@@ -173,7 +189,16 @@ namespace SmartLogistics.API.MqttConnection
                     AuftragsId = mqttRepository.AuftragsId
                 };
 
-                await mqttRepository.UpdateRoboterStatus(roboterId, requstRoboter);
+
+                try
+                {
+                    await mqttRepository.UpdateRoboterStatus(roboterId, requstRoboter);
+                }
+                catch (Exception ex)
+                {
+                    await Console.Out.WriteLineAsync("Roboterstatus für" + roboterId + " konnte nicht angepasst werden" + "\r\n" + ex.Message);
+                }
+                
             }
 
         }
